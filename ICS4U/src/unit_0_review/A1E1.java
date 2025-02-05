@@ -1,9 +1,9 @@
 package unit_0_review;
 
 /**
- * Displaying name, address, school (centered) on the console
- * @author 14eri
  * 
+ * @author 14eri
+ * @version Feb 5 2025
  */
 public class A1E1 {
 
