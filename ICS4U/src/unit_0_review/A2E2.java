@@ -5,7 +5,7 @@ package unit_0_review;
  * @author 14eri
  * @version Feb 5 2025
  */
-public class A2E1 {
+public class A2E2 {
 
 	public static void main(String[] args) {
 		// stores 3 numbers and prints out the sum in
