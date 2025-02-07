@@ -1,16 +1,15 @@
 package unit_0_review;
+import java.util.Scanner;
 
 public class Test {
 
 	public static void main(String args[]) {
-		int mark1 = 72;
-		int mark2 = 67;
-		int mark3 = 84;
-		double mean;
-//		mean = (mark1 + mark2 + mark3) / 3;
-		mean = (double) (mark1 + mark2 + mark3) / 3;
-		System.out.println("The mean equals: " + mean);
-		System.out.println();
+		Scanner input = new Scanner(System.in);
+		int a = input.nextInt();
+		input.close();
+		System.out.println(a);
+		
+		
 	}
 
 }
