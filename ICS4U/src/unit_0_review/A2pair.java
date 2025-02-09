@@ -20,13 +20,13 @@ public class A2pair {
 		// print out receipt information
 		System.out.println("WOSS Gift Shop Receipt");
 		System.out.println("----------------------");
-		System.out.format("glove          $%4.2f\n", item1);
-		System.out.format("toque          $%4.2f\n", item2);
-		System.out.format("scarf          $%4.2f\n", item3);
-		System.out.println("               -----");
-		System.out.format("HST (13%%)      $%4.2f\n", tax);
-		System.out.println("               -----");
-		System.out.format("TOTAL          $%4.2f", total);
+		System.out.format("glove           $%5.2f\n", item1);
+		System.out.format("toque           $%5.2f\n", item2);
+		System.out.format("scarf           $%5.2f\n", item3);
+		System.out.println("                ------");
+		System.out.format("HST (13%%)       $%5.2f\n", tax);
+		System.out.println("                ------");
+		System.out.format("TOTAL           $%5.2f", total);
 	}
 
 }

@@ -2,7 +2,7 @@ package unit_0_review;
 
 /**
  * Calculates the sum of 3 numbers and prints the result in a receipt format
- * @author 14eri
+ * @author Eric feng
  * @version Feb 5 2025
  */
 public class A2E2 {
@@ -11,7 +11,7 @@ public class A2E2 {
 		// stores 3 numbers and prints out the sum in
 		double item1 = 2.55;
 		double item2 = 3.2;
-		double item3 = 4.0;
+		double item3 = 4;
 		double sum = item1 + item2 + item3;
 		
 		// prints out the numbers and their sum in a receipt format

@@ -2,7 +2,7 @@ package unit_0_review;
 
 /**
  * 
- * @author 14eri
+ * @author Eric Feng
  * @version Feb 5 2025
  */
 public class A1E2 {
