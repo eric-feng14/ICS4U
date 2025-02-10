@@ -21,14 +21,20 @@ public class A4E1 {
 		income = input.nextInt();
 		input.close();
 		
-		if (income >= bracket1) {
-			tax += bracket1 * income;
+		if (income >= 27500) {
+			tax += bracket1 * 27500;
 		
-		if (income >= bracket2) {
-			tax += bracket2 * income;
+			if (income >= 27500 * 2) {
+				tax += bracket2 * 27500;
+				
+				if (income >= )
+			}
+			else {
+				tax += bracket2 * income
+			}
 		}
-		
-		
+		else {
+			tax += bracket1 * income;
 		}
 		
 	}
