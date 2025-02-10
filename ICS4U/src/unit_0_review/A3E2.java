@@ -10,6 +10,9 @@ import java.util.Scanner;
 public class A3E2 {
 
 	public static void main(String[] args) {
+		// Assign constants
+		final double HST = 0.13;
+		
 		// Variable declarations
 		String item1, item2, item3;
 		double cost1, cost2, cost3, sum, tax, total;
@@ -36,8 +39,8 @@ public class A3E2 {
 		
 		// calculations
 		sum = cost1 + cost2 + cost3;
-		tax = 0.13 * sum;
-		total = 1.13 * sum;
+		tax = HST * sum;
+		total = sum + tax;
 		
 		// print out receipt information
 		System.out.println("WOSS Gift Shop Receipt");

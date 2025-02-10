@@ -8,14 +8,17 @@ package unit_0_review;
 public class A2pair {
 
 	public static void main(String[] args) {
+		// Initialize constant
+		final double HST = 0.13;
+		
 		// Declared variables
 		double item1, item2, item3, sum, tax, total;
 		item1 = 12.89;
 		item2 = 18.99;
 		item3 = 20.00;
 		sum = 12.89 + 18.99 + 20.00;
-		tax = 0.13 * sum;
-		total = 1.13 * sum;
+		tax = HST * sum;
+		total = sum + tax;
 		
 		// print out receipt information
 		System.out.println("WOSS Gift Shop Receipt");
