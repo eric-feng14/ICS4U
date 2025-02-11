@@ -10,33 +10,29 @@ public class A4E1 {
 
 	public static void main(String[] args) {
 		// Declare variables
-		int income, tax = 0;
-		double bracket1, bracket2, bracket3;
-		bracket1 = 0.17;
-		bracket2 = 0.24;
-		bracket3 = 0.29;
-		
+		int income = 0;
+		double tax = 0;
+
 		// Collect input
 		Scanner input = new Scanner(System.in);
 		income = input.nextInt();
 		input.close();
-		
-		if (income >= 27500) {
-			tax += bracket1 * 27500;
-		
-			if (income >= 27500 * 2) {
-				tax += bracket2 * 27500;
-				
-				if (income >= )
+
+		if (income > 0) {
+			if (income > 0 && income <= 27500) {
+				tax += 0.17 * income;
+			}
+			else if (income > 27500 && income <= 55000) {
+				tax += (0.17 * 27500) + (0.24 * (income - 27500));
 			}
 			else {
-				tax += bracket2 * income
+				tax += (0.17 * 27500) + (0.24 * 27500) + (0.29 * (income - 55000));
 			}
+			System.out.format("%.2f",tax);
 		}
 		else {
-			tax += bracket1 * income;
+			System.out.println("Invalid income");
 		}
-		
 	}
 
 }
