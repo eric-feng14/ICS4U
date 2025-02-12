@@ -45,9 +45,9 @@ public class A3E2 {
 		// print out receipt information
 		System.out.println("WOSS Gift Shop Receipt");
 		System.out.println("----------------------");
-		System.out.format("%s           $%5.2f\n", item1, cost1);
-		System.out.format("%s           $%5.2f\n", item2, cost2);
-		System.out.format("%s           $%5.2f\n", item3, cost3);
+		System.out.format("%-16s$%5.2f\n", item1, cost1);
+		System.out.format("%-16s$%5.2f\n", item2, cost2);
+		System.out.format("%-16s$%5.2f\n", item3, cost3);
 		System.out.println("                ------");
 		System.out.format("HST (13%%)       $%5.2f\n", tax);
 		System.out.println("                ------");
