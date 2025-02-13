@@ -10,14 +10,9 @@ public class A4E1 {
 
 	public static void main(String[] args) {
 		// Declare constants and variables
-		final int amount1, amount2;
-		final double rate1, rate2, rate3;
+		final int amount1 = 27500, amount2 = 55000;
+		final double rate1 = 0.17, rate2 = 0.24, rate3 = 0.29;
 		double income, tax = 0;
-		amount1 = 27500;
-		amount2 = 55000;
-		rate1 = 0.17;
-		rate2 = 0.24;
-		rate3 = 0.29;
 		
 		// Collect input
 		Scanner input = new Scanner(System.in);

@@ -10,8 +10,7 @@ public class A4pair {
 
 	public static void main(String[] args) {
 		// Declare variables
-		double baseTax = 0.05;
-		double mealCost, taxAmount, total;
+		double baseTax = 0.05, taxAmount, mealCost, total;
 		int taxPercent;
 		
 		// Collect input
