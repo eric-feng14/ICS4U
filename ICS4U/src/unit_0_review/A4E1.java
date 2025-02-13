@@ -9,26 +9,33 @@ import java.util.Scanner;
 public class A4E1 {
 
 	public static void main(String[] args) {
-		// Declare variables
-		int income = 0;
-		double tax = 0;
-
+		// Declare constants and variables
+		final int amount1, amount2;
+		final double rate1, rate2, rate3;
+		double income, tax = 0;
+		amount1 = 27500;
+		amount2 = 55000;
+		rate1 = 0.17;
+		rate2 = 0.24;
+		rate3 = 0.29;
+		
 		// Collect input
 		Scanner input = new Scanner(System.in);
 		income = input.nextInt();
 		input.close();
 
 		if (income > 0) {
-			if (income > 0 && income <= 27500) {
-				tax += 0.17 * income;
+			if (income <= amount1) {
+				tax = rate1 * income;
 			}
-			else if (income > 27500 && income <= 55000) {
-				tax += (0.17 * 27500) + (0.24 * (income - 27500));
+			else if (income <= 55000) {
+				tax = (rate1 * amount1) + (rate2 * (income - amount1));
 			}
 			else {
-				tax += (0.17 * 27500) + (0.24 * 27500) + (0.29 * (income - 55000));
+				tax = (rate1 * amount2) + (rate3 * (income - amount2));
 			}
-			System.out.format("%.2f",tax);
+			
+			System.out.format("%.2f", tax);
 		}
 		else {
 			System.out.println("Invalid income");
