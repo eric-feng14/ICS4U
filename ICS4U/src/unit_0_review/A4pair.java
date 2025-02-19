@@ -9,6 +9,11 @@ import java.util.Scanner;
 public class A4pair {
 
 	public static void main(String[] args) {
+		// Declare constants
+		final int BOUNDARY = 4;
+		final double TAX13 = 0.13, TAX05 = 0.05;
+		double addedTaxPercent = TAX13 - TAX05;
+		
 		// Declare variables
 		double baseTax = 0.05, taxAmount, mealCost, total;
 		int taxPercent;
@@ -19,8 +24,8 @@ public class A4pair {
 		input.close();
 		
 		// Add necessary tax
-		if (mealCost > 4) {
-			baseTax += 0.08;
+		if (mealCost > BOUNDARY) {
+			baseTax += addedTaxPercent;
 		}
 		
 		// Calculations
