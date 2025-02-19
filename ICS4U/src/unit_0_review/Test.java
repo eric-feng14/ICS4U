@@ -26,8 +26,11 @@ public class Test {
 //			System.out.print("Enter a number less than 4: ");
 //			n = input.nextInt();
 //		} while (n >= 4);
-		for (int i = 1; i++ <= 5; i++) {
-			System.out.println(i);
-		}
+//		for (int i = 1; i++ <= 5; i++) {
+//			System.out.println(i);
+//		}
+		String x = "test";
+		String sub = x.substring(1, 3);
+		System.out.println(sub);
 	}
 }
