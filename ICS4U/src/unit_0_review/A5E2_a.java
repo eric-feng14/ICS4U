@@ -11,8 +11,7 @@ public class A5E2_a {
 	public static void main(String[] args) {
 		// Declare variables
 		int numberOfMarks = 0, totalMark = 0;
-		int counter = 0;
-		int n;
+		int counter = 0, n;
 		double avg;
 		
 		// Collect input
