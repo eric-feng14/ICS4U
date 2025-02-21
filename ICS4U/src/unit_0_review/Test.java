@@ -18,7 +18,7 @@ public class Test {
 		// Perform calculations
 		while (counter < numberOfPrimes) {
 			boolean isPrime = true;
-			for (int i = 2; i < currentNumber; i++) {
+			for (int i = 2; i <= (int) Math.sqrt(currentNumber); i++) {
 				if (currentNumber % i == 0) { // currentNumber is NOT prime
 					isPrime = false;
 					break;
