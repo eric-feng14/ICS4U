@@ -4,15 +4,32 @@ import java.util.*;
 public class Test {
 
 	public static void main(String[] args) {
-		int n = 123;
-		String line = n + "";
-		java.lang.Integer a = Integer.parseInt("9");
-		System.out.println("integer a's type :" + a.getClass());
-		int value = a.intValue();
-		int value2 = Integer.parseInt("123");
-		System.out.println("int value :" + value);
-		System.out.println("value2:" + value2);
+		// Declare variables
+		int numberOfPrimes;
+		int counter = 0;
+		int currentNumber = 2;
 		
+		// Collect input
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter number of primes: ");
+		numberOfPrimes = input.nextInt();
+		input.close();
 		
+		// Perform calculations
+		while (counter < numberOfPrimes) {
+			boolean isPrime = true;
+			for (int i = 2; i < currentNumber; i++) {
+				if (currentNumber % i == 0) { // currentNumber is NOT prime
+					isPrime = false;
+					break;
+				}
+			}
+			if (isPrime) {
+				counter++;
+				System.out.println(currentNumber);
+			}
+			currentNumber++;
+			
+		}
 	}
 }
