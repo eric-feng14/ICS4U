@@ -20,6 +20,12 @@ public class unit3_handwritten_practice {
 		// Calculations
 		hours = totalMinutes / MIN_IN_HOUR;
 		mins = totalMinutes % MIN_IN_HOUR;
+		
+		/*
+		 * Note: you cannot cast an int object to a String object. (e.g. primitive vs reference)
+		 * As a solution, you can create a new String object and add an empty string to the integer as shown below
+		 * Java will implicitly convert the integer to match with the string.
+		 */
 		stringMins = mins + "";
 		
 		// Check for single digit
