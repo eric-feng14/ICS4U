@@ -23,10 +23,6 @@ public class A5E2_a {
 			System.out.print("Enter the number of marks to input: ");
 			numberOfMarks = input.nextInt();
 			input.nextLine();
-			if (numberOfMarks <= 0) { // catch invalid numbers
-				System.out.println("Invalid number! Restart the program");
-				System.exit(0);
-			}
 		} catch (InputMismatchException ex) { //catch input mismatch
 			System.out.println("Invalid input! Run the program again");
 			System.exit(0);
@@ -53,7 +49,7 @@ public class A5E2_a {
 		input.close();
 		
 		//Final calculations and output
-		avg = totalMark / numberOfMarks;
+		avg = (double) totalMark / (double) numberOfMarks;
 		System.out.format("The overall average was %.2f%%", avg);
 	}
 

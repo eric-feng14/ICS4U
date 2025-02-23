@@ -16,6 +16,7 @@ public class A4E1 {
 		
 		// Collect input
 		Scanner input = new Scanner(System.in);
+		System.out.print("Enter amount: ");
 		income = input.nextInt();
 		input.close();
 
@@ -31,7 +32,7 @@ public class A4E1 {
 				tax = (RATE1 * AMOUNT2) + (RATE3 * (income - AMOUNT2));
 			}
 			
-			System.out.format("%.2f", tax);
+			System.out.format("Your tax is: %.2f", tax);
 		}
 		else {
 			System.out.println("Invalid income");

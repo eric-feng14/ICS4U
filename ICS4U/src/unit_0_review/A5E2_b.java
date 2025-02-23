@@ -47,13 +47,10 @@ public class A5E2_b {
 		} catch (FileNotFoundException ex) { // catch file not found
 			System.out.println("File not Found!");
 			System.exit(0);
-		} catch (InputMismatchException ex) { // catch input mismatch
-			System.out.println("Invalid input!");
-			System.exit(0);
 		}
 		
 		// Final calculation and output
-		avg = totalMark / numberOfMarks;
+		avg = (double) totalMark / (double) numberOfMarks;
 		System.out.format("The overall average was %.2f%%", avg);
 	}
 

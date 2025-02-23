@@ -13,7 +13,7 @@ public class A5E1 {
 		
 		// Collect input
 		Scanner input = new Scanner(System.in);
-		System.out.print("Enter a number ");
+		System.out.print("Enter a number: ");
 		n = input.nextInt();
 		input.close();
 		
