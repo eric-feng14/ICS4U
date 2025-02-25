@@ -15,6 +15,8 @@ public class Test {
 		numberOfPrimes = input.nextInt();
 		input.close();
 		
+		System.out.println(2);
+		
 		// Perform calculations
 		while (counter < numberOfPrimes) {
 			boolean isPrime = true;
