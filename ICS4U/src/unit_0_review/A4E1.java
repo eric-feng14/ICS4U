@@ -29,7 +29,7 @@ public class A4E1 {
 				tax = (RATE1 * AMOUNT1) + (RATE2 * (income - AMOUNT1));
 			}
 			else {
-				tax = (RATE1 * AMOUNT2) + (RATE3 * (income - AMOUNT2));
+				tax = (RATE1 * AMOUNT1) + (RATE2 * (AMOUNT2 - AMOUNT1)) + (RATE3 * (income - AMOUNT2));
 			}
 			
 			System.out.format("Your tax is: %.2f", tax);

@@ -1,0 +1,6 @@
+word
+food
+water
+chair
+laptop
+lights

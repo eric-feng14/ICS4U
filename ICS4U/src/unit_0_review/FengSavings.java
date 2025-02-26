@@ -21,7 +21,8 @@ public class FengSavings {
 
 		// Continue collecting input until all variables have been initialized
 		while (! inputFinished){
-			try { // Collect input
+			try { 
+				// Collect input
 				Scanner input = new Scanner(System.in);
 
 				// If the user has already enter a valid number for the annualContribution amount 

@@ -18,8 +18,8 @@ public class A5E2_a {
 		double avg;
 		
 		// Collect input
-		Scanner input = new Scanner(System.in);
 		try {
+			Scanner input = new Scanner(System.in);
 			System.out.print("Enter the number of marks to input: ");
 			numberOfMarks = input.nextInt();
 			input.nextLine();
@@ -31,6 +31,7 @@ public class A5E2_a {
 		// Loop until all input is taken
 		while (counter < numberOfMarks) {
 			try {
+				Scanner input = new Scanner(System.in);
 				System.out.print("Enter the mark: ");
 				n = input.nextInt();
 				input.nextLine();
@@ -43,10 +44,8 @@ public class A5E2_a {
 			}
 			catch (InputMismatchException ex) { // catch input mismatch
 				System.out.println("Invalid input!");
-				input = new Scanner(System.in); //this is necessary to avoid infinite loop
 			} 
 		}
-		input.close();
 		
 		//Final calculations and output
 		avg = (double) totalMark / (double) numberOfMarks;
