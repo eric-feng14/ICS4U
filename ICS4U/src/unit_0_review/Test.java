@@ -33,7 +33,12 @@ public class Test {
 //			currentNumber += 2;
 //			
 //		}
-		int n = 654;
-		System.out.println("n" + "\t" + n/100 + "\t" + (n%100 - n%10) / 10 + "\t" + (n%10));
+//		int n = 654;
+//		System.out.println("n" + "\t" + n/100 + "\t" + (n%100 - n%10) / 10 + "\t" + (n%10));
+		String x = "test";
+//		char y = x.charAt(0);
+		String y = x.substring(0,1);
+		String z = x + y;
+		System.out.println(z);
 	}
 }
