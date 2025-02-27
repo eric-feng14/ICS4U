@@ -10,7 +10,7 @@ public class A5E2_a {
 
 	public static void main(String[] args) {
 		// Declare constants
-		final int lowerBound = 0, upperBound = 100;
+		final int LOWERBOUND = 0, UPPERBOUND = 100;
 
 		// Declare variables
 		int numberOfMarks = 0, totalMark = 0;
@@ -22,10 +22,14 @@ public class A5E2_a {
 			Scanner input = new Scanner(System.in);
 			System.out.print("Enter the number of marks to input: ");
 			numberOfMarks = input.nextInt();
+			if (numberOfMarks < 0) {
+				System.out.println("No negative numbers. Restart the program");
+				System.exit(0);
+			}
 			while (counter < numberOfMarks) {
 				System.out.print("Enter the mark: ");
 				n = input.nextInt();
-				if (n >= lowerBound && n <= upperBound) { // if the mark is valid
+				if (n >= LOWERBOUND && n <= UPPERBOUND) { // if the mark is valid
 					totalMark += n;
 					counter++;
 				} else {

@@ -16,12 +16,16 @@ public class A6E1 {
 
 		// Collect input
 		try {
+			String sentenceEndings = ".?!";
 			Scanner input = new Scanner(new File("data1.txt"));
 			while (input.hasNext()) {
 				String word = input.next();
-				if (word.endsWith(".")) {
-					numberOfSentences++;
-					totalWordLength -= 1;
+				for (int i = 0; i < sentenceEndings.length(); i++) {
+					String ending = sentenceEndings.substring(i,i+1);
+					if (word.endsWith(ending)) {
+						numberOfSentences++;
+						totalWordLength -= 1;
+					}
 				}
 				totalWordLength += word.length();
 				wordCount++;

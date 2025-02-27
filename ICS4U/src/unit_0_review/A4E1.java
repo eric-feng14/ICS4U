@@ -22,10 +22,12 @@ public class A4E1 {
 
 		// Check if income is valid
 		if (income > 0) {
-			if (income <= AMOUNT1) { //If income is below first rate
+			//If income is below first rate
+			if (income <= AMOUNT1) { 
 				tax = RATE1 * income;
 			}
-			else if (income <= AMOUNT2) { //If income is below second rate
+			//If income is below second rate
+			else if (income <= AMOUNT2) { 
 				tax = (RATE1 * AMOUNT1) + (RATE2 * (income - AMOUNT1));
 			}
 			else {
