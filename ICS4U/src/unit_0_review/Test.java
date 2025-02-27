@@ -35,10 +35,17 @@ public class Test {
 //		}
 //		int n = 654;
 //		System.out.println("n" + "\t" + n/100 + "\t" + (n%100 - n%10) / 10 + "\t" + (n%10));
-		String x = "test";
-//		char y = x.charAt(0);
-		String y = x.substring(0,1);
-		String z = x + y;
+//		String x = "test";
+////		char y = x.charAt(0);
+//		String y = x.substring(0,1);
+//		String z = x + y;
+//		System.out.println(z);
+		int x = 20;
+		double y = 19.9;
+		double z = x + 19.9;
+		double v = Math.min(20, 19.9);
+		System.out.println(y);
 		System.out.println(z);
+		System.out.println(x > y);
 	}
 }

@@ -68,6 +68,7 @@ public class FengSavings {
 				// Check if the user will be putting in too much money. If so, prompt them to reenter two inputs (not the interest rate)
 				if (annualContribution * numberOfYears > maxContributionTotal) {
 					System.out.format("Over the course of %d years, you can contribute a maximum of $%d\n", numberOfYears, maxContributionTotal);
+					System.out.format("Based on your current inputs, you will be contributing $%.2f\n", annualContribution * numberOfYears);
 					contributionExists = false;
 					yearNumExists = false;
 					continue;
@@ -76,7 +77,7 @@ public class FengSavings {
 				//Close input and exit out of the main while loop
 				input.close();
 				inputFinished = true;
-			} catch (Exception ex) { // catches the error, continues to the next iteration of while until user enters valid input
+			} catch (Exception ex) { // catches error, continues to the next iteration of while until user enters valid input
 				System.out.println("Invalid input!"); //output error/debug message
 			}
 		}
