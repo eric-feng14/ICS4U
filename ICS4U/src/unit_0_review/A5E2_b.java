@@ -22,6 +22,10 @@ public class A5E2_b {
 		try {
 			Scanner input = new Scanner(new File("info.txt"));
 			numberOfMarks = input.nextInt();
+			if (numberOfMarks < 0) {
+				System.out.println("No negative numbers");
+				System.exit(0);
+			}
 			while (counter < numberOfMarks) {
 				n = input.nextInt();
 				if (n >= lowerBound && n <= upperBound) { // if the mark is valid

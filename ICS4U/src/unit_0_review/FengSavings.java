@@ -40,7 +40,7 @@ public class FengSavings {
 
 				// Flow moves here once the user has already entered a valid contribution amount. They are now prompted to enter an interest rate.
 				if (! interestExists) {
-					System.out.print("Enter the annual interest rate: ");
+					System.out.print("Enter the annual interest rate (%): ");
 					annualInterestRate = input.nextDouble() / 100;
 					if (annualInterestRate < 0) { // catch negative numbers
 						System.out.println("Invalid input! No negatives. ");
