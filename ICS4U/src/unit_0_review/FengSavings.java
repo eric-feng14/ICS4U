@@ -10,29 +10,29 @@ public class FengSavings {
 
 	public static void main(String[] args) {
 		// Declare constants
-		final int maxGrantAmount = 500, maxOverallGrantAmount = 7200, maxContributionTotal = 50000, maxYears = 31;
-		final double grantPercent = 0.2;
+		final int MAX_GRANT_AMOUNT = 500, MAX_OVERALL_GRANT_AMOUNT = 7200, MAX_CONTRIBUTION_TOTAL = 50000, MAX_YEARS = 31;
+		final double GRANT_PERCENT = 0.2;
 		
 		// Declare variables
 		int numberOfYears = 0; //user inputed
 		double annualContribution = 0, annualInterestRate = 0; //user inputed
 		double initialBalance = 0, finalBalance = 0, currentInterest;
 		boolean inputFinished = false, interestExists = false, contributionExists = false, yearNumExists = false;
-
+		
+		// Prepare to collect input
+		Scanner input = new Scanner(System.in);
+		
 		// Continue collecting input until all variables have been initialized
 		while (! inputFinished){
 			try { 
-				// Collect input
-				Scanner input = new Scanner(System.in);
-
-				// If the user has already enter a valid number for the annualContribution amount 
+				// If the user has NOT already entered a valid number for the annualContribution amount 
 				if (! contributionExists) {
 					System.out.print("Enter the annual contribution amount: ");
 					annualContribution = input.nextDouble();
 					// Catch negative numbers
 					if (annualContribution < 0) {
 						System.out.println("Invalid input! No negatives. ");
-						continue; //continue until input is valid
+						continue; //continue/keep collecting input until input is valid
 					} else { //user has entered valid input, no need to prompt again for this question
 						contributionExists = true;
 					}
@@ -57,17 +57,17 @@ public class FengSavings {
 					if (numberOfYears < 0) { //Catch negatives
 						System.out.println("Invalid input! No negatives. ");
 						continue;
-					} else if (numberOfYears > maxYears) { // Prevent user from entering too many years
-						System.out.format("Max number of years is %d\n", maxYears);
+					} else if (numberOfYears > MAX_YEARS) { // Prevent user from entering too many years
+						System.out.format("Max number of years is %d\n", MAX_YEARS);
 						continue;
 					} else {
 						yearNumExists = true;
 					}
 				}
 				
-				// Check if the user will be putting in too much money. If so, prompt them to reenter two inputs (not the interest rate)
-				if (annualContribution * numberOfYears > maxContributionTotal) {
-					System.out.format("Over the course of %d years, you can contribute a maximum of $%d\n", numberOfYears, maxContributionTotal);
+				// Check if the user will be putting in too much money. If so, prompt them to reenter two inputs (not the interest rate because it's valid)
+				if (annualContribution * numberOfYears > MAX_CONTRIBUTION_TOTAL) {
+					System.out.format("Over the course of %d years, you can contribute a maximum of $%d\n", numberOfYears, MAX_CONTRIBUTION_TOTAL);
 					System.out.format("Based on your current inputs, you will be contributing $%.2f\n", annualContribution * numberOfYears);
 					contributionExists = false;
 					yearNumExists = false;
@@ -79,19 +79,20 @@ public class FengSavings {
 				inputFinished = true;
 			} catch (Exception ex) { // catches error, continues to the next iteration of while until user enters valid input
 				System.out.println("Invalid input!"); //output error/debug message
+				input.nextLine(); // clear the invalid input
 			}
 		}
 
 		// Calculate the current grant, create an accumulator to store the grants, store the total contributions, and store the total interest
-		double currentGrant = Math.min(maxGrantAmount, grantPercent * annualContribution), totalGrantedAmount = 0;
+		double currentGrant = Math.min(MAX_GRANT_AMOUNT, GRANT_PERCENT * annualContribution), totalGrantedAmount = 0;
 		double totalContribution = numberOfYears * annualContribution, totalInterest = 0;
 		
 		//Output and calculations
 		System.out.format("Year%5sInitial Balance%5sContribution%5sGrant%5sInterest%5sFinal Balance\n","","","","","","");
 		for (int yr = 1; yr <= numberOfYears; yr++) {
 			// Prevent the government from giving you more than some amount (7200 in this case) for your RESP
-			if (totalGrantedAmount + currentGrant > maxOverallGrantAmount) {
-				currentGrant = maxOverallGrantAmount - totalGrantedAmount;
+			if (totalGrantedAmount + currentGrant > MAX_OVERALL_GRANT_AMOUNT) {
+				currentGrant = MAX_OVERALL_GRANT_AMOUNT - totalGrantedAmount;
 			}
 			// Reset initial balance for each new line (entry)
 			initialBalance = finalBalance;
@@ -106,6 +107,7 @@ public class FengSavings {
 			totalInterest += currentInterest;
 			System.out.format("%-3d%21.2f%17.2f%10.2f%13.2f%18.2f\n", yr, initialBalance, annualContribution, currentGrant, currentInterest, finalBalance);
 		}
+		// Final output line
 		System.out.format("After %d years, you contributed $%.2f and earned $%.2f in grants and $%.2f in interest.\n", numberOfYears, totalContribution, totalGrantedAmount, totalInterest);
 		
 	}
