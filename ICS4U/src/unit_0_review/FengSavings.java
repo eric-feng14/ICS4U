@@ -83,9 +83,17 @@ public class FengSavings {
 			}
 		}
 
+		// Calculate the current grant (min between MAX_GRANT_AMOUNT and GRANT_PERCENT * annualContribution)
+		double currentGrant;
+		if (MAX_GRANT_AMOUNT > GRANT_PERCENT * annualContribution) {
+			currentGrant = GRANT_PERCENT * annualContribution;
+		} else {
+			currentGrant = MAX_GRANT_AMOUNT;
+		}
+		
 		// Calculate the current grant, create an accumulator to store the grants, store the total contributions, and store the total interest
-		double currentGrant = Math.min(MAX_GRANT_AMOUNT, GRANT_PERCENT * annualContribution), totalGrantedAmount = 0;
-		double totalContribution = numberOfYears * annualContribution, totalInterest = 0;
+		double totalGrantedAmount = 0, totalInterest = 0;
+		double totalContribution = numberOfYears * annualContribution;
 		
 		//Output and calculations
 		System.out.format("Year%5sInitial Balance%5sContribution%5sGrant%5sInterest%5sFinal Balance\n","","","","","","");
