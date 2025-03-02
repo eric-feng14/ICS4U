@@ -77,7 +77,7 @@ public class FengSavings {
 				//Close input and exit out of the main while loop
 				input.close();
 				inputFinished = true;
-			} catch (Exception ex) { // catches error, continues to the next iteration of while until user enters valid input
+			} catch (InputMismatchException ex) { // catches error, continues to the next iteration of while until user enters valid input
 				System.out.println("Invalid input!"); //output error/debug message
 				input.nextLine(); // clear the invalid input
 			}
@@ -91,7 +91,7 @@ public class FengSavings {
 			currentGrant = MAX_GRANT_AMOUNT;
 		}
 		
-		// Calculate the current grant, create an accumulator to store the grants, store the total contributions, and store the total interest
+		// Create an accumulator to store the grants, store the total contributions, and store the total interest
 		double totalGrantedAmount = 0, totalInterest = 0;
 		double totalContribution = numberOfYears * annualContribution;
 		
