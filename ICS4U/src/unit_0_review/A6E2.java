@@ -14,6 +14,8 @@ public class A6E2 {
 		try {
 			// Declare variables and collect input
 			String upperLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
+			String sentenceEndings = ".?!";
+			String sentenceConnectors  = ",:";
 			Scanner input = new Scanner(new File("data2.txt"));
 			
 			// Collect each line from the file as input
@@ -28,35 +30,44 @@ public class A6E2 {
 					// Separate the words by checking for spaces
 					if (currentCharacter.equals(" ")) {
 						String firstLetter = currentWord.substring(0,1);
-						boolean isUpper = false, hasPeriod = false;
+						String addedEnding = "";
 						
 						// Check if the first letter of the word is a capital
-						for (int j = 0; j<upperLetters.length();j++) {
+						for (int j = 0; j<upperLetters.length(); j++) {
 							String currentCapital = upperLetters.substring(j,j+1);
 							if (firstLetter.equals(currentCapital)) {
-								isUpper = true;
+								String secondLetter = currentWord.substring(1,2);
+								addedEnding += firstLetter.toLowerCase();
+								currentWord = secondLetter.toUpperCase() + currentWord.substring(2);
 								break;
 							}
 						}
-						if (currentWord.endsWith(".")) {
-							currentWord = currentWord.substring(0, currentWord.length()-1);
-							hasPeriod = true;
+						
+						// Added "ay" ending before puncutation and after capital modification
+						addedEnding += "ay";
+						
+						// Check if the current word ends with a connector
+						for (int k = 0; k < sentenceConnectors.length(); k++) {
+							String currentConnector = sentenceConnectors.substring(k,k+1);
+							if (currentWord.endsWith(currentConnector)) {
+								addedEnding += currentConnector;
+								currentWord = currentWord.substring(0,currentWord.length()-1);
+								break;
+							}
 						}
 						
-						if (isUpper) {
-							firstLetter = firstLetter.toLowerCase();
-							String secondLetter = currentWord.substring(1,2).toUpperCase();
-							currentWord = secondLetter + currentWord.substring(2) + firstLetter + "ay";
-						} else {
-							currentWord = currentWord.substring(1) + firstLetter + "ay";
-						}
-						
-						if (hasPeriod) {
-							currentWord += ".";
+						// Check if the current word ends with an ending
+						for (int l = 0; l < sentenceEndings.length(); l ++) {
+							String currentEnding = sentenceEndings.substring(l,l+1);
+							if (currentWord.endsWith(currentEnding)) {
+								addedEnding += currentEnding;
+								currentWord = currentWord.substring(0,currentWord.length()-1);
+								break;
+							}
 						}
 						
 						// Add new word to resulting line and reset the word
-						newLine += currentWord + " ";
+						newLine += currentWord + addedEnding + " ";
 						currentWord = "";
 						
 					//Current character is NOT a space, must be part of the word
