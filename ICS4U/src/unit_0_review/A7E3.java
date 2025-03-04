@@ -28,8 +28,8 @@ public class A7E3 {
 
 			// Modify booleans
 			for (int i = 2; i < arr.length; i++) {
-				if (arr[i]) { //if true
-					//loop through rest of array starting from the next multiple
+				if (arr[i]) { //if the number is initially set to true (this would have to be a prime number)
+					// check the rest of the array and mark all multiples as false starting from the next one
 					for (int j = i * 2; j < arr.length; j += i) {
 						arr[j] = false;
 					}

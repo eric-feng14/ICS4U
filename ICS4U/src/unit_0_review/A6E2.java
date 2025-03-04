@@ -25,8 +25,8 @@ public class A6E2 {
 						
 						// Check if the first letter of the word is a capital
 						for (int j = 0; j<upperLetters.length();j++) {
-							String currentLetter = upperLetters.substring(j,j+1);
-							if (firstLetter.equals(currentLetter)) {
+							String currentCapital = upperLetters.substring(j,j+1);
+							if (firstLetter.equals(currentCapital)) {
 								isUpper = true;
 								break;
 							}

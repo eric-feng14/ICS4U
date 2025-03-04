@@ -17,6 +17,7 @@ public class A6E1 {
 		// Collect input
 		try {
 			String sentenceEndings = ".?!";
+			String puncutation = ",:";
 			Scanner input = new Scanner(new File("data1.txt"));
 			while (input.hasNext()) {
 				String word = input.next();
@@ -24,6 +25,12 @@ public class A6E1 {
 					String ending = sentenceEndings.substring(i,i+1);
 					if (word.endsWith(ending)) {
 						numberOfSentences++;
+						totalWordLength -= 1;
+					}
+				}
+				for (int i = 0; i < puncutation.length(); i++) {
+					String ending = puncutation.substring(i,i+1);
+					if (word.endsWith(ending)) {
 						totalWordLength -= 1;
 					}
 				}
