@@ -12,13 +12,20 @@ public class A6E2 {
 	public static void main(String[] args) {
 		// Collect input
 		try {
+			// Declare variables and collect input
 			String upperLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
 			Scanner input = new Scanner(new File("data2.txt"));
+			
+			// Collect each line from the file as input
 			while (input.hasNextLine()) {
-				String line = input.nextLine() + " ";
+				String line = input.nextLine() + " "; // space for end of line
 				String currentWord = "", newLine = "";
+				
+				// Get each character of the line
 				for (int i = 0; i < line.length(); i++) {
 					String currentCharacter = line.substring(i,i+1);
+					
+					// Separate the words by checking for spaces
 					if (currentCharacter.equals(" ")) {
 						String firstLetter = currentWord.substring(0,1);
 						boolean isUpper = false, hasPeriod = false;
@@ -51,6 +58,8 @@ public class A6E2 {
 						// Add new word to resulting line and reset the word
 						newLine += currentWord + " ";
 						currentWord = "";
+						
+					//Current character is NOT a space, must be part of the word
 					} else { 
 						currentWord += currentCharacter;
 					}

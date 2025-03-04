@@ -16,10 +16,14 @@ public class A6E1 {
 
 		// Collect input
 		try {
+			// 
 			String sentenceEndings = ".?!";
 			String puncutation = ",:";
 			Scanner input = new Scanner(new File("data1.txt"));
+			
+			// Collect each line of input
 			while (input.hasNext()) {
+				// collect each word
 				String word = input.next();
 				for (int i = 0; i < sentenceEndings.length(); i++) {
 					String ending = sentenceEndings.substring(i,i+1);

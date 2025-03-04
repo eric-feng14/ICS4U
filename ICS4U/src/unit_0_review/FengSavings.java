@@ -32,8 +32,14 @@ public class FengSavings {
 					// Catch negative numbers
 					if (annualContribution < 0) {
 						System.out.println("Invalid input! No negatives. ");
-						continue; //continue/keep collecting input until input is valid
-					} else { //user has entered valid input, no need to prompt again for this question
+						continue; //keep collecting input until input is valid
+					// Check if the user input exceeds maximum contribution amount
+					} else if (annualContribution > MAX_CONTRIBUTION_TOTAL) {
+						System.out.format("You can contribute a maximum of $%d over your entire savings schedule\n", MAX_CONTRIBUTION_TOTAL);
+						continue;
+					}
+					//user has entered valid input, no need to prompt again for this question
+					else { 
 						contributionExists = true;
 					}
 				}
@@ -42,10 +48,12 @@ public class FengSavings {
 				if (! interestExists) {
 					System.out.print("Enter the annual interest rate (%): ");
 					annualInterestRate = input.nextDouble() / 100;
-					if (annualInterestRate < 0) { // catch negative numbers
+					// catch negative numbers
+					if (annualInterestRate < 0) { 
 						System.out.println("Invalid input! No negatives. ");
 						continue;
-					} else { // input is valid, moves onto the next block
+					// input is valid, moves onto the next block
+					} else { 
 						interestExists = true;
 					}
 				}
@@ -54,24 +62,25 @@ public class FengSavings {
 				if (! yearNumExists) {
 					System.out.print("Enter the number of years (int) you want to save for: ");
 					numberOfYears = input.nextInt();
-					if (numberOfYears < 0) { //Catch negatives
+					//Catch negatives
+					if (numberOfYears < 0) { 
 						System.out.println("Invalid input! No negatives. ");
 						continue;
-					} else if (numberOfYears > MAX_YEARS) { // Prevent user from entering too many years
+					// Prevent user from entering too many years
+					} else if (numberOfYears > MAX_YEARS) { 
 						System.out.format("Max number of years is %d\n", MAX_YEARS);
 						continue;
-					} else {
+					// Check again if the user input exceeds maximum contribution amount based on new inputs
+					} else if (annualContribution * numberOfYears > MAX_CONTRIBUTION_TOTAL) { // Check if the user will be putting in too much money. Reprompt if necessary.
+						System.out.format("Over the course of %d years, you can contribute a maximum of $%d\n", numberOfYears, MAX_CONTRIBUTION_TOTAL);
+						System.out.format("Based on your current inputs, you will be contributing $%.2f\n", annualContribution * numberOfYears);
+						contributionExists = false; // no need to reprompt for interest again (because it's valid)
+						continue;
+					}
+					// valid input
+					else {
 						yearNumExists = true;
 					}
-				}
-				
-				// Check if the user will be putting in too much money. If so, prompt them to reenter two inputs (not the interest rate because it's valid)
-				if (annualContribution * numberOfYears > MAX_CONTRIBUTION_TOTAL) {
-					System.out.format("Over the course of %d years, you can contribute a maximum of $%d\n", numberOfYears, MAX_CONTRIBUTION_TOTAL);
-					System.out.format("Based on your current inputs, you will be contributing $%.2f\n", annualContribution * numberOfYears);
-					contributionExists = false;
-					yearNumExists = false;
-					continue;
 				}
 
 				//Close input and exit out of the main while loop
@@ -91,7 +100,7 @@ public class FengSavings {
 			currentGrant = MAX_GRANT_AMOUNT;
 		}
 		
-		// Create an accumulator to store the grants, store the total contributions, and store the total interest
+		// Create an accumulator to store the grants, store the total interest, and store the total contributions
 		double totalGrantedAmount = 0, totalInterest = 0;
 		double totalContribution = numberOfYears * annualContribution;
 		
