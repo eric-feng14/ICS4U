@@ -12,13 +12,13 @@ public class A7pair {
 	public static void main(String[] args) {
 		try {
 			// Constants
-			final int size = 3;
+			final int SIZE = 3;
 
 			// Variables and input
 			Scanner input = new Scanner(new File("data4.txt"));
 			int row = 0, col = 0;
-			int[][] grid = new int[size][size];
-			int referenceSum = 0, rowSum, columnSum, diag1Sum, diag2Sum;
+			int[][] grid = new int[SIZE][SIZE];
+			int referenceSum = 0, rowSum, columnSum, diag1Sum = 0, diag2Sum = 0;
 			boolean isMagic = true;
 
 			while (input.hasNextLine()) {
@@ -43,37 +43,39 @@ public class A7pair {
 				referenceSum += n;
 			}
 
-			// Check row and column sums
-			for (int i = 0; i < size;i++) {
+			// Calculate row and column sums
+			for (int i = 0; i < SIZE;i++) {
 				rowSum = 0;
 				columnSum = 0;
 
-				for (int j = 0; j< size;j++) {
+				// Loop through the columns 
+				for (int j = 0; j< SIZE;j++) {
 					rowSum += grid[i][j];
 					columnSum += grid[j][i];
 				}
 				
+				// Check row and column sums
 				if (rowSum != referenceSum || columnSum != referenceSum) {
 					isMagic = false;
 				}
 				
 			}
 
-			//Check diagonals
-			for (int i = 0, j = 0; i < size && j < size; i++,j++) {
-				diag1Sum = 0;
-				diag2Sum = 0;
+			//Calculate diagonal sums
+			for (int i = 0, j = 0; i < SIZE && j < SIZE; i++,j++) {
 				//Left to right diagonal
 				diag1Sum += grid[i][j];
 				
 				//Right to left diagonal
-				diag2Sum += grid[i][size-(j+1)];
-				
-				if (diag1Sum != referenceSum || diag2Sum != referenceSum) {
-					isMagic = false;
-				}
+				diag2Sum += grid[i][SIZE-(j+1)];
+			}
+			
+			// Check diagonal sums
+			if (diag1Sum != referenceSum || diag2Sum != referenceSum) {
+				isMagic = false;
 			}
 
+			// Final output
 			if (isMagic) {
 				System.out.println("Is a magic square");
 			} else {
