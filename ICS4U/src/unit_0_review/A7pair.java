@@ -54,20 +54,15 @@ public class A7pair {
 					columnSum += grid[j][i];
 				}
 				
+				// Add diagonal sums
+				diag1Sum += grid[i][i];
+				diag2Sum += grid[i][SIZE-(i+1)];
+				
 				// Check row and column sums
 				if (rowSum != referenceSum || columnSum != referenceSum) {
 					isMagic = false;
 				}
 				
-			}
-
-			//Calculate diagonal sums
-			for (int i = 0, j = 0; i < SIZE && j < SIZE; i++,j++) {
-				//Left to right diagonal
-				diag1Sum += grid[i][j];
-				
-				//Right to left diagonal
-				diag2Sum += grid[i][SIZE-(j+1)];
 			}
 			
 			// Check diagonal sums
