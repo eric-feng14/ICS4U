@@ -29,8 +29,11 @@ public class A6E2 {
 					
 					// Separate the words by checking for spaces
 					if (currentCharacter.equals(" ")) {
+						int currentWordLength = currentWord.length();
 						String firstLetter = currentWord.substring(0,1);
+						String endingCharacter = currentWord.substring(currentWordLength-1);
 						String addedEnding = "";
+						
 						
 						// Check if the first letter of the word is a capital
 						for (int j = 0; j<upperLetters.length(); j++) {
@@ -49,7 +52,7 @@ public class A6E2 {
 						// Check if the current word ends with a connector
 						for (int k = 0; k < sentenceConnectors.length(); k++) {
 							String currentConnector = sentenceConnectors.substring(k,k+1);
-							if (currentWord.endsWith(currentConnector)) {
+							if (currentConnector.equals(endingCharacter)) { 
 								addedEnding += currentConnector;
 								currentWord = currentWord.substring(0,currentWord.length()-1);
 								break;
@@ -59,7 +62,7 @@ public class A6E2 {
 						// Check if the current word ends with an ending
 						for (int l = 0; l < sentenceEndings.length(); l ++) {
 							String currentEnding = sentenceEndings.substring(l,l+1);
-							if (currentWord.endsWith(currentEnding)) {
+							if (currentEnding.equals(endingCharacter)) {
 								addedEnding += currentEnding;
 								currentWord = currentWord.substring(0,currentWord.length()-1);
 								break;
