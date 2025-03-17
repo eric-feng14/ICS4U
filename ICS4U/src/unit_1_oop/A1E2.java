@@ -6,7 +6,7 @@ import java.util.*;
  * @author Eric Feng
  * @version March 7 2025
  */
-public class A8E2 {
+public class A1E2 {
 
 	public static String getEmail(String name) {
 		final String organization = "@hdsb.ca";

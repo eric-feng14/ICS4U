@@ -6,7 +6,7 @@ import java.util.*;
  * @author Eric Feng
  * @version Feb 7 2025
  */
-public class A8E3 {
+public class A1E3 {
 
 	public static double calcTotal(double[] coinValues, int[] freqArr) {
 		double total = 0;

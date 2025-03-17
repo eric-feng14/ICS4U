@@ -1,7 +1,7 @@
 package unit_0_review;
 import java.util.*;
 
-public class unit3_handwritten_practice {
+public class Unit3_handwritten_practice {
 
 	public static void main(String[] args) {
 		// constants

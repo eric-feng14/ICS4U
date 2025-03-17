@@ -6,7 +6,7 @@ import java.util.*;
  * @author Eric Feng
  * @version Feb 7 2025
  */
-public class A8E1 {
+public class A1E1 {
 
 	/**
 	 * draws the third pic
