@@ -9,6 +9,16 @@ public class ReviewQuestion {
 				System.out.format("%-50s $%.2f\n", foodNames[i], foodPrices[i]);
 			}
 		}
+		
+		int i = 0, n = 0;
+		while (i < foodPrices.length) {
+			if (amountOfMoney >= foodPrices[i]) {
+				System.out.format("%-50s $%.2f\n", foodNames[i], foodPrices[i]);
+				n++;
+			} else {
+				
+			}
+		}
 	}
 	
 	public static void main(String[] args) {
