@@ -3,20 +3,21 @@ import java.util.*;
 
 public class ReviewQuestion {
 
-	public static void displayMenu(int amountOfMoney, String foodNames[], double foodPrices[]) {
-		for (int i = 0; i < foodPrices.length; ++i) {
-			if (amountOfMoney >= foodPrices[i]) {
-				System.out.format("%-50s $%.2f\n", foodNames[i], foodPrices[i]);
-			}
-		}
-		
-		int i = 0, n = 0;
-		while (i < foodPrices.length) {
-			if (amountOfMoney >= foodPrices[i]) {
-				System.out.format("%-50s $%.2f\n", foodNames[i], foodPrices[i]);
-				n++;
-			} else {
-				
+	/**
+	 * Prints out items that the user can purchase based on their current amount of money
+	 * Note that ArrayList is an object and all objects are passed by reference, so modifying the object here modifies the actual object too.
+	 * @param amountOfMoney, foodNames, foodPrices
+	 * @return 
+	 */
+	public static void displayMenu(double amountOfMoney, ArrayList<String> foodNames, ArrayList<Double> foodPrices) {
+		int i = 0;
+		while (i < foodPrices.size()) {
+			if (amountOfMoney >= foodPrices.get(i)) {
+				System.out.format("%-3s %-50s $%.2f\n", (i+1) + ".", foodNames.get(i), foodPrices.get(i));
+				++i;
+			} else { // Do not increment i because the whole array shifts to the left.
+				foodNames.remove(i);
+				foodPrices.remove(i);
 			}
 		}
 	}
@@ -24,30 +25,29 @@ public class ReviewQuestion {
 	public static void main(String[] args) {
 		// Variables
 		Scanner input = new Scanner(System.in);
-		int num, money;
+		int num; double money;
 		System.out.print("Enter your budget: ");
-		money = input.nextInt();
+		money = input.nextDouble();
 		
-		String foodNames[] = {
-				"1.  Miso Soup",
-				"2.  House Salad", 
-				"3.  Tuna Tataki Salad", 
-				"4.  Agedashi Tofu",
-				"5.  Lemon Grass Beef Skewers",
-				"6.  Chicken Lettuce Wrap", 
-				"7.  Samurai Steak 14oz", 
-				"8.  Hotate -Yaki", 
-				"9.  Teriyaki Striploin 8oz", 
-				"10. The Emperor’s Choice", 
-				"11. Wasabi Chicken", 
-				"12. Fresh Grilled Shitake Mushrooms",
-				"13. Fresh Grilled Asparagus",
-				"14. Teppanyaki Heaven",
-				"15. Steamed Rice", 
-				"16. Grilled Tofu"
-		};
+		ArrayList<String> foodNames = new ArrayList<String>(Arrays.asList(
+				"Miso Soup",
+				"House Salad", 
+				"Tuna Tataki Salad", 
+				"Agedashi Tofu",
+				"Lemon Grass Beef Skewers",
+				"Chicken Lettuce Wrap", 
+				"Samurai Steak 14oz", 
+				"Hotate -Yaki", 
+				"Teriyaki Striploin 8oz", 
+				"The Emperor’s Choice", 
+				"Wasabi Chicken", 
+				"Fresh Grilled Shitake Mushrooms",
+				"Fresh Grilled Asparagus",
+				"Teppanyaki Heaven",
+				"Steamed Rice", 
+				"Grilled Tofu"));
 		
-		double foodPrices[] = {
+		ArrayList<Double> foodPrices = new ArrayList<Double>(Arrays.asList(
 				3.50,
 				4.00,
 				14.95,
@@ -63,26 +63,24 @@ public class ReviewQuestion {
 				4.95, 
 				89.00,
 				2.50,  
-				4.95
-		};
+				4.95));
 		
 		displayMenu(money, foodNames, foodPrices);
 		
 		//continuously collect input until user inputs 0
 		while (true) {
-			System.out.print("Enter your choice (0 to quit): ");
+			System.out.print("Enter your item choice (0 to quit): ");
 			num = input.nextInt();
 			
 			//Exit condition
 			if (num == 0) {
-				System.out.println("stuff");
+				System.out.format("Your total is %.2f", money);
 				break;
 			}
 			
-			money -= num;
-			
+			money -= foodPrices.get(num-1);
 			displayMenu(money, foodNames, foodPrices);
-			
+//			System.out.format("Your total is %.2f\n", money); // Debugging purposes
 		}
 
 	}
