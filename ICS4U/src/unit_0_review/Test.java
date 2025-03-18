@@ -26,8 +26,18 @@ public class Test {
 //		for (int i = LOW; i <= HIGH; i++) {
 //			System.out.println((char) i + ": " + letterCounts[i - LOW]);
 //		}
-		System.out.print("a");
-		System.out.print("\n");
-		System.out.print("b");
+//		System.out.print("a");
+//		System.out.print("\n");
+//		System.out.print("b");
+		
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter your name: ");
+		String name = input.nextLine().toUpperCase();
+		char[] arr = new char[name.length()];
+		for (int i = 0; i < name.length(); ++i) {
+			char currentChar = name.charAt(i);
+			arr[i] = currentChar;
+			System.out.println(currentChar);
+		}
 	}
 }
