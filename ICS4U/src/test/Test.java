@@ -41,7 +41,16 @@ public class Test {
 //		for (Object i: arr) {
 //			System.out.println(i);
 //		}
-		String name = "Eric";
+		int x = 10;
+		switch (x) {
+			case 1:
+				System.out.println(3);
+				break;
+			default:
+				System.out.println("Default");
+			case 2:
+				System.out.println(2);
+		}
 		
 	}
 }
