@@ -42,8 +42,6 @@ public class Test {
 //			System.out.println(i);
 //		}
 		String name = "Eric";
-		String a = name.substring(-1,0);
-		char x = name.charAt(-1);
-		System.out.println(a);
+		
 	}
 }
