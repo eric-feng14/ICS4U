@@ -1,6 +1,7 @@
-package unit_0_review;
+package test;
 import java.io.*;
 import java.util.*;
+
 
 public class Test {
 
@@ -30,14 +31,19 @@ public class Test {
 //		System.out.print("\n");
 //		System.out.print("b");
 		
-		Scanner input = new Scanner(System.in);
-		System.out.print("Enter your name: ");
-		String name = input.nextLine().toUpperCase();
-		char[] arr = new char[name.length()];
-		for (int i = 0; i < name.length(); ++i) {
-			char currentChar = name.charAt(i);
-			arr[i] = currentChar;
-			System.out.println(currentChar);
-		}
+//		Integer n = new Integer(2);
+//		int[] arr = new int[3];
+//		ArrayList<String> arr = new ArrayList<String>();
+//		ArrayList<String> arr = new ArrayList<String>();
+//		arr.add("test");
+//		String item = arr.get(0);
+//		
+//		for (Object i: arr) {
+//			System.out.println(i);
+//		}
+		String name = "Eric";
+		String a = name.substring(-1,0);
+		char x = name.charAt(-1);
+		System.out.println(a);
 	}
 }
