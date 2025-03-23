@@ -1,4 +1,4 @@
-package unit_1_oop;
+package unit_1_oop.traffic;
 import java.awt.*;
 import javax.swing.JFrame;
 
