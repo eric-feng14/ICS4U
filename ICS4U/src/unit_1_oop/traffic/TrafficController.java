@@ -12,7 +12,7 @@ public class TrafficController extends Canvas{
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("A3E1");
 		Canvas canvas = new TrafficController();
-		canvas.setSize(500, 500);
+		canvas.setSize(650, 500);
 		frame.add(canvas);
 		frame.pack();
 		frame.setVisible(true);
@@ -27,6 +27,13 @@ public class TrafficController extends Canvas{
 		StopLight trafalgarUppermiddle = new StopLight(250, 50, g);
 //		trafalgarUppermiddle.drawStopLight();
 		trafalgarUppermiddle.goRed();
+		
+		StopLight dundasNeyagawa = new StopLight(450, 50, g);
+		dundasNeyagawa.goYellow();
+		dundasNeyagawa.test();
+		
+		//Why does this run 3 times? Isn't this a static method?
+		StopLight.test();
 	}
 	
 }

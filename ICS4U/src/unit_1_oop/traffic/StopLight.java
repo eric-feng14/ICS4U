@@ -24,6 +24,13 @@ public class StopLight {
 	}
 	
 	/**
+	 * testing a static method
+	 */
+	public static void test() {
+		System.out.println("test class method");
+	}
+	
+	/**
 	 * Draws a defualt stoplight on a separate window
 	 */
 	public void drawStopLight() {
