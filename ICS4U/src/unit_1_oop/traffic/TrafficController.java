@@ -2,6 +2,11 @@ package unit_1_oop.traffic;
 import java.awt.*;
 import javax.swing.JFrame;
 
+/**
+ * Client code/Application Class
+ * @author Eric Feng
+ * @version March 26 2025
+ */
 public class TrafficController extends Canvas{
 
 	public static void main(String[] args) {
@@ -16,11 +21,11 @@ public class TrafficController extends Canvas{
 	public void paint(Graphics g) {
 		this.setBackground(Color.CYAN);
 		StopLight trafalgarDundas = new StopLight(50, 50,g);
-		trafalgarDundas.drawStopLight();
+//		trafalgarDundas.drawStopLight();
 		trafalgarDundas.goGreen();
 		
 		StopLight trafalgarUppermiddle = new StopLight(250, 50, g);
-		trafalgarUppermiddle.drawStopLight();
+//		trafalgarUppermiddle.drawStopLight();
 		trafalgarUppermiddle.goRed();
 	}
 	
