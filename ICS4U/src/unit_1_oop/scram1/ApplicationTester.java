@@ -2,8 +2,6 @@ package unit_1_oop.scram1;
 import java.awt.*;
 import javax.swing.JFrame;
 
-import unit_1_oop.GraphicsLesson;
-
 public class ApplicationTester extends Canvas{
 
 	public static void main(String[] args) {
@@ -19,8 +17,14 @@ public class ApplicationTester extends Canvas{
 //		this.setBackground(Color.white);
 		RobotHead thisHead = new RobotHead(200, 100, g);
 		thisHead.drawHead();
-		Foreground foreGround1 = new Foreground(g);
-		foreGround1.drawBush(400, 700, 30);
+		Foreground foreGround1 = new Foreground();
+		
+		final int maxHorizontal = 500, maxVertical = 800, size = 15;
+		for (int x = 0; x < maxHorizontal; x+=size) {
+			for (int y = 700; y < maxVertical; y+=size) {
+				foreGround1.drawRock(x, y, g, size);
+			}
+		}
 	}
 
 }
