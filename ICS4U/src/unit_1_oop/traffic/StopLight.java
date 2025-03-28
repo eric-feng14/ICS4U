@@ -13,7 +13,7 @@ public class StopLight {
 	private Graphics g;
 	
 	/**
-	 * Constructor method
+	 * Constructor method -> creates and draws a stoplight
 	 * @param x position
 	 * @param y position
 	 * @param graphics object
@@ -24,20 +24,14 @@ public class StopLight {
 	}
 	
 	/**
-	 * testing a static method
+	 * Draws a default stoplight on a separate window
 	 */
-	public static void test() {
-		System.out.println("test class method");
-	}
-	
-	/**
-	 * Draws a defualt stoplight on a separate window
-	 */
-	public void drawStopLight() {
+	private void drawStopLight() {
 		g.setColor(Color.DARK_GRAY);
-		g.fillOval(x, y, 100, 100);
-		g.fillOval(x, y+150, 100, 100);
-		g.fillOval(x, y+300, 100, 100);
+		g.drawRect(this.x-25, this.y-25, 150, 450);
+		g.fillOval(this.x, this.y, 100, 100);
+		g.fillOval(this.x, this.y+150, 100, 100);
+		g.fillOval(this.x, this.y+300, 100, 100);
 	}
 	
 	/**
@@ -45,7 +39,7 @@ public class StopLight {
 	 */
 	public void goGreen() {
 		g.setColor(Color.green);
-		g.fillOval(x, y, 100, 100);
+		g.fillOval(this.x, this.y, 100, 100);
 	}
 	
 	/**
@@ -53,7 +47,7 @@ public class StopLight {
 	 */
 	public void goYellow() {
 		g.setColor(Color.yellow);
-		g.fillOval(x, y+150, 100, 100);
+		g.fillOval(this.x, this.y+150, 100, 100);
 	}
 	
 	/**
@@ -61,6 +55,6 @@ public class StopLight {
 	 */
 	public void goRed() {
 		g.setColor(Color.red);
-		g.fillOval(x, y+300, 100, 100);
+		g.fillOval(this.x, this.y+300, 100, 100);
 	}
 }

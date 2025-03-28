@@ -19,9 +19,14 @@ public class A2E1 extends Canvas {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * special paint method
+	 * draws a template traffic light
+	 */
 	public void paint(Graphics g) {
 		this.setBackground(Color.yellow);
 		g.setColor(Color.DARK_GRAY);
+		g.drawRect(25, 25, 150, 450);
 		g.fillOval(50, 50, 100, 100);
 		g.fillOval(50, 200, 100, 100);
 		g.fillOval(50, 350, 100, 100);

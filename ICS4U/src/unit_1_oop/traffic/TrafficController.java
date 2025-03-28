@@ -20,20 +20,15 @@ public class TrafficController extends Canvas{
 
 	public void paint(Graphics g) {
 		this.setBackground(Color.CYAN);
-		StopLight trafalgarDundas = new StopLight(50, 50,g);
-//		trafalgarDundas.drawStopLight();
+		StopLight trafalgarDundas = new StopLight(50, 50, g);
 		trafalgarDundas.goGreen();
 		
 		StopLight trafalgarUppermiddle = new StopLight(250, 50, g);
-//		trafalgarUppermiddle.drawStopLight();
 		trafalgarUppermiddle.goRed();
 		
 		StopLight dundasNeyagawa = new StopLight(450, 50, g);
 		dundasNeyagawa.goYellow();
-		dundasNeyagawa.test();
 		
-		//Why does this run 3 times? Isn't this a static method?
-		StopLight.test();
 	}
 	
 }

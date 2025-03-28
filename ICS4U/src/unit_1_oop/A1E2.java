@@ -8,6 +8,11 @@ import java.util.*;
  */
 public class A1E2 {
 
+	/**
+	 * return email address based on a name
+	 * @param name -> represents the full name
+	 * @return modified email
+	 */
 	public static String getEmail(String name) {
 		final String organization = "@hdsb.ca";
 		int index = name.indexOf(" ");
@@ -18,8 +23,7 @@ public class A1E2 {
 	}
 	
 	/**
-	 * collect input and send to output function
-	 * @param args
+	 * main
 	 */
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);

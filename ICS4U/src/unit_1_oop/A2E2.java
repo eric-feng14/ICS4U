@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.JFrame;
 
 /**
- * work
+ * draws a traffic light with colors
  * @author Eric Feng
  * @version March 17 2025
  */
@@ -43,9 +43,13 @@ public class A2E2 extends Canvas {
 		g.fillOval(50,  200,  100,  100);
 	}
 
+	/**
+	 * Special paint method
+	 */
 	public void paint(Graphics g) {
 		this.setBackground(Color.cyan);
 		g.setColor(Color.DARK_GRAY);
+		g.drawRect(25, 25, 150, 450);
 		g.fillOval(50, 50, 100, 100);
 		g.fillOval(50, 200, 100, 100);
 		g.fillOval(50, 350, 100, 100);

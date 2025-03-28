@@ -65,7 +65,6 @@ public class A1E1 {
 	}
 	
 	/**
-	 * @param string array
 	 * @return prints out selected drawing
 	 */
 	public static void main(String[] args) {
@@ -73,6 +72,7 @@ public class A1E1 {
 		Random generator = new Random();
 		choice = generator.nextInt(3) + 1;
 		
+		// condition block to generate choices
 		if (choice == 1) {
 			drawTrain();
 		} else if (choice == 2) {
