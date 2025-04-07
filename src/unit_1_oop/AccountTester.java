@@ -12,7 +12,7 @@ public class AccountTester {
 		
 		//Normal Case
 		Account EricFeng = new Account(1234);
-		EricFeng.deposit(100);
+		EricFeng.deposit(-100);
 		EricFeng.withdraw(50);
 		balance = EricFeng.getBalance();
 		accountNum = EricFeng.getAccountNum();

@@ -55,17 +55,17 @@ public class A2E2 extends Canvas {
 		g.fillOval(x,y,size,size);
 	}
 
-	public void drawStopLight(Graphics g) {
+	public void drawStopLight(Graphics g, int x, int y) {
 		g.setColor(Color.ORANGE);
-		g.fillRect(25, 25, 150, 450);
+		g.fillRect(x, y, 150, 450);
 		g.setColor(Color.DARK_GRAY);
-		g.drawRect(25, 25, 150, 450);
-		g.fillOval(50, 50, 100, 100);
-		g.drawRect(50, 50, 100, 100);
-		g.fillOval(50, 200, 100, 100);
-		g.drawRect(50, 200, 100, 100);
-		g.fillOval(50, 350, 100, 100);
-		g.drawRect(50, 350, 100, 100);
+		g.drawRect(x, y, 150, 450);
+		g.fillOval(x+25, y+25, 100, 100);
+		g.drawRect(x+25, y+25, 100, 100);
+		g.fillOval(x+25, y+175, 100, 100);
+		g.drawRect(x+25, y+175, 100, 100);
+		g.fillOval(x+25, y+325, 100, 100);
+		g.drawRect(x+25, y+325, 100, 100);
 		goRed(50,50,100,g);
 		goYellow(50,200,100,g);
 		goGreen(50,350,100,g);
@@ -74,6 +74,6 @@ public class A2E2 extends Canvas {
 	 * Special paint method
 	 */
 	public void paint(Graphics g) {
-		drawStopLight(g);	
+		drawStopLight(g,25,25);	
 	}
 }

@@ -50,6 +50,7 @@ public class Account {
 	}
 	
 	/**
+	 * returns the current user's balance
 	 * @return returns the current user's balance
 	 */
 	public double getBalance() {
@@ -57,6 +58,7 @@ public class Account {
 	}
 	
 	/**
+	 * returns the current user's account number
 	 * @return returns the current user's account number
 	 */
 	public int getAccountNum() {
