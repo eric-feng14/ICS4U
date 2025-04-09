@@ -12,31 +12,37 @@ public class HurdleRobot extends RobotSE{
 	public HurdleRobot(City c, int ave, int street, Direction d) {
 		super(c, ave, street, d); //calls the parent's constructor
 	}
+
 	
 	/**
-	 * runs the whole race for a single robot
-	 * pre: robot is on the coin
-	 * post: robot is done the race, places the coin back down
+	 * runs the race for 1 robot
 	 */
-	
-	public static void createHurdles(City c) {
-		for (int i = 0; i < 10; ++i) {
-			Wall x = new Wall(c, 3, i, Direction.SOUTH);
-		}
-		for (int i = 1; i <= 7; i+=2) {
-			for (int j = 2; j < 4; ++j) {
-				Wall a = new Wall(c,j,i,Direction.EAST);
-			}
-		}
+	public void runRace() {
+		this.pickBaton();
+		this.jumpHurdle();
+		this.putBaton();
 	}
 	
-	public void runRace() {
-		this.pickAllThings();
+	private void jumpHurdle() {
+		//Jump over each hurdle twice
 		for (int i = 0; i < 2; ++i) {
-			this.goToHurdle();
+			this.goToHurdle(); 
 			this.jump();
 			this.land();
 		}
+	}
+	
+	/**
+	 * picks up the baton
+	 */
+	private void pickBaton() {
+		this.pickAllThings();
+	}
+	
+	/**
+	 * puts the baton back down
+	 */
+	private void putBaton() {
 		this.putAllThings();
 	}
 	
@@ -46,6 +52,7 @@ public class HurdleRobot extends RobotSE{
 	 * post: robot is right before the hurdle, still facing it
 	 */
 	private void goToHurdle() {
+		//continue moving while front is clear
 		while (this.frontIsClear()) {
 			this.move();
 		}
@@ -58,6 +65,7 @@ public class HurdleRobot extends RobotSE{
 	 */
 	private void jump() {
 		this.turnLeft();
+		//move up twice
 		for (int i = 0; i < 2; i++) {
 			this.move();
 		}
@@ -72,6 +80,7 @@ public class HurdleRobot extends RobotSE{
 	 */
 	private void land() {
 		this.turnRight();
+		//move down twice
 		for (int i = 0; i < 2; i++) {
 			this.move();
 		}

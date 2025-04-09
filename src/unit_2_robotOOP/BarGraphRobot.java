@@ -9,36 +9,27 @@ import java.util.*;
  */
 public class BarGraphRobot extends RobotSE{
 	
-	final private static int numberOfThings = 7;
-	
 	//Constructor
 	public BarGraphRobot(City c, int ave, int street, Direction d) {
 		super(c, ave, street, d); //calls the parent's constructor
 	}
 	
-	/**
-	 * creates a bar graph with things of random count between 1 to 10
+	/*
+	 * puts all things in order for a section of the bar graph
 	 */
-	public void createBarGraph() {
-		Random generator = new Random();
-		//Create the initial setup
-		for (int i = 1; i <= numberOfThings; ++i) {
-			int num = generator.nextInt(10) + 1;
-			for (int j = 0; j < num; ++j) {
-				Thing thisThing = new Thing(this.getCity(), i, 1);
-			}
+	public void spreadBarGraph() {
+		for (int i = 0; i < A3E2.numberOfThings; ++i) {
+			this.pickUpEverything();
+			this.placeThingsInALine();
+			this.goBack();
 		}
 	}
 	
 	/**
-	 * puts all things in order for a section of the bar graph
+	 * picks up all things at the robots currents location
 	 */
-	public void spreadBarGraph() {
-		for (int i = 0; i < numberOfThings; ++i) {
-			this.pickAllThings();
-			this.placeThingsInALine();
-			this.goBack();
-		}
+	private void pickUpEverything() {
+		this.pickAllThings();
 	}
 	
 	/**
@@ -46,9 +37,16 @@ public class BarGraphRobot extends RobotSE{
 	 */
 	private void placeThingsInALine() {
 		while (this.countThingsInBackpack() > 0) {
-			this.move();
-			this.putThing();
+			this.moveAndPutThing();
 		}
+	}
+	
+	/**
+	 * moves and puts a thing
+	 */
+	private void moveAndPutThing() {
+		this.move();
+		this.putThing();
 	}
 	
 	/**
@@ -56,11 +54,26 @@ public class BarGraphRobot extends RobotSE{
 	 */
 	private void goBack() {
 		this.turnAround();
+		continuePickingThings();
+		prepareNextRow();
+	}
+	
+	/**
+	 * continues going forward and picking things if they exist
+	 */
+	private void continuePickingThings() {
 		while (this.canPickThing()) {
 			this.move();
 		}
+	}
+	
+	/**
+	 * prepares the robot to spread the things on the next row
+	 */
+	private void prepareNextRow() {
 		this.turnLeft();
 		this.move();
 		this.turnLeft();
 	}
+	
 }

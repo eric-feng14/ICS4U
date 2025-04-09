@@ -55,6 +55,12 @@ public class A2E2 extends Canvas {
 		g.fillOval(x,y,size,size);
 	}
 
+	/**
+	 * draws the stop light
+	 * @param g g is the graphics object used for drawing
+	 * @param x x is the x value for the top left corner of the traffic light
+	 * @param y y is the y value for the top left corner of the traffic light
+	 */
 	public void drawStopLight(Graphics g, int x, int y) {
 		g.setColor(Color.ORANGE);
 		g.fillRect(x, y, 150, 450);

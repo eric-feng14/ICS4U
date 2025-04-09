@@ -3,22 +3,14 @@ import becker.robots.*;
 
 public class SpiralBot extends RobotSE{
 	
+	private int numLoops = 0;
+	
 	//Constructor method
 	public SpiralBot(City c, int x, int y, Direction d) {
 		super(c,x,y,d);
 	}
 	
-	/**
-	 * adds n thing at position (x,y)
-	 * @param x x value of position
-	 * @param y y value of position
-	 * @param n number of things to add
-	 */
-	public void addThings(int x, int y, int n) {
-		for (int i = 0; i < n; ++i) {
-			Thing t = new Thing(this.getCity(),x,y);
-		}
-	}
+	
 	
 	/**
 	 * main logic for creating the spiral
@@ -34,11 +26,20 @@ public class SpiralBot extends RobotSE{
 		 * 
 		 * 1 loop cycle is 2 steps of the pattern + 1 extra line
 		 */
+		this.numLoops = numLoops;
+		
 		for (int i = 1; i <= 2*numLoops; i++) {
 			this.performIteration(i);
 		}
-		
-		for (int i = 0; i < 2*numLoops+1; i++) {
+
+		this.addEndingLine();
+	}
+	
+	/**
+	 * puts things and moves forward for a specific amount of time
+	 */
+	private void addEndingLine() {
+		for (int i = 0; i < 2*this.numLoops+1; i++) {
 			this.putThing();
 			this.move();
 		}
@@ -57,7 +58,7 @@ public class SpiralBot extends RobotSE{
 			this.turnLeft();
 			
 		}
-		System.out.println("iteration done");
+//		System.out.println("iteration done"); // Kept for debugging purposes
 	}
 	
 }
