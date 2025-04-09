@@ -17,15 +17,7 @@ public class A3E1 extends HurdleRobot{
 		HurdleRobot robot1 = new HurdleRobot(oakville, 3, 0, Direction.EAST);
 		HurdleRobot robot2 = new HurdleRobot(oakville, 3, 4, Direction.EAST);
 		
-		//draw the walls
-		for (int i = 0; i < 10; ++i) {
-			Wall x = new Wall(oakville, 3, i, Direction.SOUTH);
-		}
-		for (int i = 1; i <= 7; i+=2) {
-			for (int j = 2; j < 4; ++j) {
-				Wall a = new Wall(oakville,j,i,Direction.EAST);
-			}
-		}
+		robot1.createHurdles(oakville);
 		
 		Thing coin = new Thing(oakville,3,0);
 		robot1.runRace();

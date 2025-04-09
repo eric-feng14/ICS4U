@@ -18,6 +18,18 @@ public class HurdleRobot extends RobotSE{
 	 * pre: robot is on the coin
 	 * post: robot is done the race, places the coin back down
 	 */
+	
+	public static void createHurdles(City c) {
+		for (int i = 0; i < 10; ++i) {
+			Wall x = new Wall(c, 3, i, Direction.SOUTH);
+		}
+		for (int i = 1; i <= 7; i+=2) {
+			for (int j = 2; j < 4; ++j) {
+				Wall a = new Wall(c,j,i,Direction.EAST);
+			}
+		}
+	}
+	
 	public void runRace() {
 		this.pickAllThings();
 		for (int i = 0; i < 2; ++i) {
