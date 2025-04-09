@@ -3,14 +3,10 @@ import becker.robots.*;
 
 public class SpiralBot extends RobotSE{
 	
-	private int numLoops = 0;
-	
 	//Constructor method
 	public SpiralBot(City c, int x, int y, Direction d) {
 		super(c,x,y,d);
 	}
-	
-	
 	
 	/**
 	 * main logic for creating the spiral
@@ -26,22 +22,25 @@ public class SpiralBot extends RobotSE{
 		 * 
 		 * 1 loop cycle is 2 steps of the pattern + 1 extra line
 		 */
-		this.numLoops = numLoops;
+		this.pickUpEverything();
 		
 		for (int i = 1; i <= 2*numLoops; i++) {
-			this.performIteration(i);
+			this.wrapAround(i);
 		}
 
 		this.addEndingLine();
 	}
 	
+	private void pickUpEverything() {
+		this.pickAllThings();
+	}
+	
 	/**
-	 * puts things and moves forward for a specific amount of time
+	 * adds the final line of things to complete the spiral
 	 */
 	private void addEndingLine() {
-		for (int i = 0; i < 2*this.numLoops+1; i++) {
-			this.putThing();
-			this.move();
+		for (int i = 0; i < 2*A3E4.numLoops+1; i++) {
+			depositAndMove();
 		}
 	}
 	
@@ -49,16 +48,22 @@ public class SpiralBot extends RobotSE{
 	 * moves n time for 2 iterations
 	 * @param n distance to move for each iteration
 	 */
-	private void performIteration(int n) {
+	private void wrapAround(int n) {
 		for (int i = 0; i < 2; ++i) {
 			for (int j = 0; j < n; ++j) {
-				this.putThing();
-				this.move();
+				depositAndMove();
 			}
 			this.turnLeft();
 			
 		}
-//		System.out.println("iteration done"); // Kept for debugging purposes
+	}
+	
+	/**
+	 * puts a thing and moves forward
+	 */
+	private void depositAndMove() {
+		this.putThing();
+		this.move();
 	}
 	
 }

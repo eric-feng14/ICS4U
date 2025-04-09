@@ -36,6 +36,7 @@ public class BarGraphRobot extends RobotSE{
 	 * puts all things into a line
 	 */
 	private void placeThingsInALine() {
+		//Continue moving and putting things while the backpack has things
 		while (this.countThingsInBackpack() > 0) {
 			this.moveAndPutThing();
 		}

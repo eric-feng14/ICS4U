@@ -15,9 +15,11 @@ public class A3E1{
 	 */
 	
 	public static void createHurdles(City c) {
+		//Create the main wall
 		for (int i = 0; i < 10; ++i) {
 			Wall x = new Wall(c, 3, i, Direction.SOUTH);
 		}
+		//Create thea ctual hurdles
 		for (int i = 1; i <= 7; i+=2) {
 			for (int j = 2; j < 4; ++j) {
 				Wall a = new Wall(c,j,i,Direction.EAST);
