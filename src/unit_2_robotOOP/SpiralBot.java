@@ -1,9 +1,20 @@
 package unit_2_robotOOP;
 import becker.robots.*;
 
+/**
+ * Template class for a spiral robot
+ * @author Eric Feng
+ * @version April 10 2025
+ */
 public class SpiralBot extends RobotSE{
 	
-	//Constructor method
+	/**
+	 * Constructor method for a tunnel robot
+	 * @param c c is the city
+	 * @param x x is the x value of the robot
+	 * @param y y is the y value of the robot
+	 * @param d d is the direction the robot is facing
+	 */
 	public SpiralBot(City c, int x, int y, Direction d) {
 		super(c,x,y,d);
 	}

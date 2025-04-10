@@ -9,7 +9,13 @@ import java.util.*;
  */
 public class BarGraphRobot extends RobotSE{
 	
-	//Constructor
+	/**
+	 * constructor method for creating a bar graph robot
+	 * @param c c is the city 
+	 * @param ave ave is horizontal numbers
+	 * @param street street is vertical numbers
+	 * @param d direction to face
+	 */
 	public BarGraphRobot(City c, int ave, int street, Direction d) {
 		super(c, ave, street, d); //calls the parent's constructor
 	}
@@ -18,11 +24,22 @@ public class BarGraphRobot extends RobotSE{
 	 * puts all things in order for a section of the bar graph
 	 */
 	public void spreadBarGraph() {
-		for (int i = 0; i < A3E2.numberOfThings; ++i) {
+		while (this.canGetThing()) {
 			this.pickUpEverything();
 			this.placeThingsInALine();
 			this.goBack();
 		}
+	}
+	
+	/**
+	 * check if something can be picked up at the robot's current position
+	 * @return returns whether the robot can pick up a thing
+	 */
+	private boolean canGetThing() {
+		if (this.canPickThing()) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**

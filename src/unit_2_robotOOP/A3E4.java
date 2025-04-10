@@ -1,6 +1,12 @@
 package unit_2_robotOOP;
 import becker.robots.*;
 
+/**
+ * /**
+ * application class for testing a spiral robot
+ * @author Eric Feng
+ * @version April 10 2025
+ */
 public class A3E4 {
 
 	final static int numLoops = 3;
