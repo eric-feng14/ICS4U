@@ -2,10 +2,19 @@ package unit_2_robotOOP;
 import becker.robots.*;
 import java.util.*;
 
+/**
+ * Application class for maze traversal
+ * @author Eric Feng
+ * @version April 11 2025
+ */
 public class MazeRunner {
 	
 	final static int gridHeight = 10, gridLength = 10;
 
+	/**
+	 * add a ending position by random
+	 * @param c c is the city for where to put the thing
+	 */
 	public static void addTarget(City c) {
 		//Generate random coordinates for the end target
 //		Random generator = new Random();
@@ -19,7 +28,7 @@ public class MazeRunner {
 	
 	public static void main(String[] args) {
 		MazeCity oakville = new MazeCity(MazeRunner.gridHeight, MazeRunner.gridLength);
-		MazeBot thisRobot = new MazeBot(oakville, 0, 0, Direction.EAST);
+		SimpleMazeBot thisRobot = new SimpleMazeBot(oakville, 0, 0, Direction.EAST);
 		
 		addTarget(oakville);
 		thisRobot.run();

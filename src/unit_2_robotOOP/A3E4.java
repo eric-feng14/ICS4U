@@ -8,8 +8,6 @@ import becker.robots.*;
  * @version April 10 2025
  */
 public class A3E4 {
-
-	final static int numLoops = 3;
 	
 	/**
 	 * adds n thing at position (x,y)
@@ -30,7 +28,7 @@ public class A3E4 {
 		SpiralBot thisRobot = new SpiralBot(oakville,robotX,robotY,Direction.EAST);
 		
 		addThings(oakville, robotX, robotY, 49);
-		thisRobot.makeSpiral(A3E4.numLoops);
+		thisRobot.makeSpiral(1);
 	}
 
 }

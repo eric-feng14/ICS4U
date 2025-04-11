@@ -39,7 +39,7 @@ public class SpiralBot extends RobotSE{
 			this.wrapAround(i);
 		}
 
-		this.addEndingLine();
+		this.addEndingLine(numLoops);
 	}
 	
 	private void pickUpEverything() {
@@ -49,8 +49,8 @@ public class SpiralBot extends RobotSE{
 	/**
 	 * adds the final line of things to complete the spiral
 	 */
-	private void addEndingLine() {
-		for (int i = 0; i < 2*A3E4.numLoops+1; i++) {
+	private void addEndingLine(int numLoops) {
+		for (int i = 0; i < 2*numLoops+1; i++) {
 			depositAndMove();
 		}
 	}
@@ -61,12 +61,19 @@ public class SpiralBot extends RobotSE{
 	 */
 	private void wrapAround(int n) {
 		for (int i = 0; i < 2; ++i) {
-			for (int j = 0; j < n; ++j) {
-				depositAndMove();
-			}
-			this.turnLeft();
-			
+			this.cycle(n);
 		}
+	}
+	
+	/**
+	 * place n items in a row and prepare to do it for the next cycle
+	 * @param n how many items to place in a row
+	 */
+	private void cycle(int n) {
+		for (int i = 0; i < n; i++) {
+			this.depositAndMove();
+		}
+		this.turnLeft();
 	}
 	
 	/**

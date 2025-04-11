@@ -23,10 +23,6 @@ public class TunnelRobot extends RobotSE{
 	 * main loop for collecting the things
 	 */
 	public void run() {
-//		for (int i = 0; i < A3E3.size; i++) {
-//			this.findNextThing();
-//			this.goBack();
-//		}
 		while (true) {
 			this.findNextThing();
 			if (this.endReached()) {

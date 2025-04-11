@@ -23,6 +23,7 @@ public class A3E3 {
 			Wall wall1 = new Wall(c,x,i,Direction.NORTH);
 			Wall wall2 = new Wall(c,x,i,Direction.SOUTH);
 			Thing thisThing = new Thing(c,x,i);
+			Thing newThing = new Thing(c,x,i);
 		}
 		Wall thisWall = new Wall(c,x,y+separation+size-1,Direction.EAST);
 	}
