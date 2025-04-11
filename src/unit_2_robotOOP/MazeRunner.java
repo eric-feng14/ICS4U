@@ -22,7 +22,7 @@ public class MazeRunner {
 		MazeBot thisRobot = new MazeBot(oakville, 0, 0, Direction.EAST);
 		
 		addTarget(oakville);
-//		thisRobot.run();
+		thisRobot.run();
 	}
 
 }
