@@ -23,6 +23,9 @@ public class HurdleRobot extends RobotSE{
 		this.putBaton();
 	}
 	
+	/**
+	 * jump over one hurdle
+	 */
 	private void jumpHurdle() {
 		//Jump over each hurdle twice
 		for (int i = 0; i < 2; ++i) {

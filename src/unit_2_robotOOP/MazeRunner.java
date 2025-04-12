@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class MazeRunner {
 	
-	final static int gridHeight = 10, gridLength = 10;
+	final static int gridHeight = 25, gridLength = 25;
 
 	/**
 	 * add a ending position by random
@@ -23,7 +23,7 @@ public class MazeRunner {
 //		Thing endPoint = new Thing(c, x, y);
 		
 		//Make it as far as possible for manual testing
-		Thing endPoint = new Thing(c, 9, 9);
+		Thing endPoint = new Thing(c, 24, 24);
 	}
 	
 	public static void main(String[] args) {

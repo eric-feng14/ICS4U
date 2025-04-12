@@ -1,5 +1,6 @@
 package unit_2_robotOOP;
 import becker.robots.*;
+import java.util.*;
 
 /**
  * Application class for a cleaner robot
@@ -8,26 +9,81 @@ import becker.robots.*;
  */
 public class ChairMoverRobotTester {
 	
-	private static void setup(City c, int length, int height) {
+	//Is this okay?
+	private static Random generator = new Random();
+	
+	private static int[][] setupAndStoreChairs(City c, int refStreet, int refAve, int length, int height, int numOfChairs) {
+		int[][] chairs = new int[numOfChairs][2]; //contains pairs of integers representing the locations of the chairs
+		//Randomly fill with chairs
+		for (int i = 0; i < numOfChairs; i++) {
+			int chairStreet = generator.nextInt(height) + refStreet; //represents the street that the chair is on. range = [refStreet, height+refStreet-1]
+			int chairAve = generator.nextInt(length) + refAve; //represents the avenue that the chair is on. range = [refAve, length+refAve-1]
+			Thing thisChair = new Thing(c, chairStreet, chairAve);
+			chairs[i][0] = chairStreet;
+			chairs[i][1] = chairAve;
+		}
+		return chairs;
+	}
+	
+	private static int[] setupBoundariesAndGetDoor(City c, int refStreet, int refAve, int separation, int length, int height) {
+		//the wall that will be missing, representing the door. range = [refAve, length+refAve-1] (both inclusive)
+		int randomIndex = generator.nextInt(length) + refAve;
+		
+		//Door position
+		int[] door = {height+refStreet-1, 0};
+		
 		//Create the horizontal walls
-		for (int i = 1; i < length; i++) {
-			Wall wall1 = new Wall(c, 1, i, Direction.NORTH);
-			Wall wall2 = new Wall(c, height, i, Direction.SOUTH);
+		for (int i = refAve; i < length + refAve; i++) {
+			Wall topWall = new Wall(c, refStreet, i, Direction.NORTH);
+			Wall storageWall = new Wall(c, refStreet + height + separation, i, Direction.SOUTH);
+			if (i != randomIndex) {
+				Wall bottomWall = new Wall(c, refStreet + height - 1, i, Direction.SOUTH);
+			} else { //save the position of the wall
+				door[1] = i;
+			}
 		}
 		
 		//Create the vertical walls
-		for (int i = 1; i <= height; i++) {
-			Wall wall1 = new Wall(c,i,1,Direction.WEST);
-			Wall wall2 = new Wall(c,i,length-1,Direction.EAST);
+		for (int i = refStreet; i < height + refStreet; i++) {
+			Wall leftWall = new Wall(c,i,refAve,Direction.WEST);
+			Wall rightWall = new Wall(c,i,refAve+length-1,Direction.EAST);
 		}
+		
+		//Draw the sides of the storage
+		Wall leftStorage = new Wall(c, refStreet + height + separation, refAve, Direction.WEST);
+		Wall rightStorage = new Wall(c, refStreet + height + separation, refAve+length-1, Direction.EAST);
+		
+		return door;
 	}
 	
 	
 
 	public static void main(String[] args) {
+		//Declare constants
+		final int referenceStreet = 1, referenceAve = 1; //top left of the cafeteria
+		final int length = 8, height = 5;
+		final int numOfChairs = 25, separation = 2;
+		
+		//Create the city
 		City oakville = new City(10, 10);
-		setup(oakville, 9, 5);
-
+		oakville.showThingCounts(true);
+		
+		//Generate a random direction for the robot to start with.
+		Direction[] directions = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
+		int randomDirection = generator.nextInt(directions.length);
+		
+		//Setup the drawing so that its ready for the robot to traverse (e.g. clean chairs up)
+		int[] door = setupBoundariesAndGetDoor(oakville, referenceStreet, referenceAve, separation, length, height);
+		int[][] chairs = setupAndStoreChairs(oakville, referenceStreet, referenceAve, length, height, numOfChairs);
+		
+		//Randomize the robot's position within the cafeteria
+		int roboX = generator.nextInt(height) + referenceStreet; //represents the street that the robot is on
+		int roboY = generator.nextInt(length) + referenceAve; //represents the avenue that the robot is on
+		
+		//Manage storage
+		int storageStreet = referenceStreet + height + separation;
+		FengChairMoverRobot thisRobot = new FengChairMoverRobot(oakville, roboX, roboY, directions[randomDirection], length, chairs, door);
+		thisRobot.moveChairs(referenceAve, storageStreet);
 	}
 
 }
