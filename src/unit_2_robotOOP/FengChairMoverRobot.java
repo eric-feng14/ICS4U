@@ -39,6 +39,11 @@ public class FengChairMoverRobot extends RobotSE{
 	
 	
 	public void moveChairs(int referenceAve, int storageStreet) {
+		/*
+		 * When you're bringing a chair from the cafeteria to the storage space, it is a better idea to
+		 * go to the lower door. When you're coming from the storage to the cafeteria, it is a better idea 
+		 * to go to the upper door. See goToPosition() to understand why. 
+		 */
 		organizeChairs(this.upperDoorStreet, this.doorAve);
 		goToPosition(this.chairs[0][0], this.chairs[0][1]);
 		pickUpChair();
