@@ -8,11 +8,11 @@ import becker.robots.*;
  */
 public class FengChairMoverRobot extends RobotSE{
 	
-	final private static int maxStorageHeight = 10;
-	private int[] storage;
-	private int[][] chairs;
-	private int lowerDoorStreet, upperDoorStreet, doorAve; //we need lower up and street positions for the doors due to how the goToPosition() function works. read it to understand better
-	private int depositIndex = 0;
+	final private static int maxStorageHeight = 10; //how much each position in the storage can contain
+	private int[] storage; //1d array representing the storage space (does not correspond to the storage's coordinates)
+	private int[][] chairs; //2d array representing the street and avenue values for each chair
+	private int lowerDoorStreet, upperDoorStreet, doorAve; //represents information about the door
+	private int depositIndex = 0; //integer used to fill up the storage space
 	
 	/**
 	 * constructor method for creating a cleaner robot
@@ -21,6 +21,8 @@ public class FengChairMoverRobot extends RobotSE{
 	 * @param avenue avenue is the number on the horizontal axis
 	 * @param d d is the direction the robot is initially facing
 	 * @length length is the length of the cafeteria
+	 * @param chairs chairs is a 2d array representing the positions of the chairs
+	 * @param door door is an array of size 2 representing the position of the door
 	 */
 	public FengChairMoverRobot(City c, int street, int avenue, Direction d, int length, int[][] chairs, int[] door) {
 		super(c, street, avenue, d);
@@ -31,40 +33,42 @@ public class FengChairMoverRobot extends RobotSE{
 		this.doorAve = door[1];
 	}
 	
-	/*
-	 * Plan:
-	 * use an array to represent the storage space
-	 * use a separate array to keep track of the most optimal coins at the current position
+	/**
+	 * main logic for cleaning up the room
+	 * @param referenceAve referenceAve is the leftmost Avenue within the room
+	 * @param storageStreet storageStreet is the the street where the storage should be placed
 	 */
-	
-	
 	public void moveChairs(int referenceAve, int storageStreet) {
 		/*
 		 * When you're bringing a chair from the cafeteria to the storage space, it is a better idea to
 		 * go to the lower door. When you're coming from the storage to the cafeteria, it is a better idea 
 		 * to go to the upper door. See goToPosition() to understand why. 
 		 */
-		organizeChairs(this.upperDoorStreet, this.doorAve);
-		goToPosition(this.chairs[0][0], this.chairs[0][1]);
-		pickUpChair();
-		goToPosition(this.lowerDoorStreet, this.doorAve);
-		deposit(storageStreet, referenceAve); //first deposit
+		this.organizeChairs(this.upperDoorStreet, this.doorAve);
+		this.goToPosition(this.chairs[0][0], this.chairs[0][1]);
+		this.pickUpChair();
+		this.goToPosition(this.lowerDoorStreet, this.doorAve);
+		this.deposit(storageStreet, referenceAve); //first deposit
 
 		for (int i = 1; i < this.chairs.length; i++) {
 			this.goToPosition(this.upperDoorStreet, this.doorAve);
 			this.goToPosition(this.chairs[i][0], this.chairs[i][1]);
-			pickUpChair();
+			this.pickUpChair();
 			this.goToPosition(this.lowerDoorStreet, this.doorAve);
 			
 			if (positionIsFull()) {
 				depositIndex++;
 				referenceAve++;
 			}
-			deposit(storageStreet, referenceAve);
+			this.deposit(storageStreet, referenceAve);
 
 		}
 	}
 	
+	/**
+	 * determines whether the previous i
+	 * @return
+	 */
 	private boolean positionIsFull() {
 		if (this.storage[this.depositIndex] == maxStorageHeight) {
 			return true;
