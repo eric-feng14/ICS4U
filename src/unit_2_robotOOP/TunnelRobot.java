@@ -80,10 +80,20 @@ public class TunnelRobot extends RobotSE{
 	 * @return returns a boolean value (if the end is reached)
 	 */
 	private boolean endReached() {
-		if (! this.frontIsClear()) {
+		if (! this.frontIsClear() && this.countThingsAtPos() == 1) {
 			return true;
 		}
 		return false;
+	}
+	
+	private int countThingsAtPos() {
+		int counter = 0;
+		while (this.canPickThing()) {
+			this.pickThing();
+			counter++;
+		}
+		this.putAllThings();
+		return counter;
 	}
 	
 	/**

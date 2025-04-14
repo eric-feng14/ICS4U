@@ -82,8 +82,8 @@ public class ChairMoverRobotTester {
 		
 		//Manage storage
 		int storageStreet = referenceStreet + height + separation;
-		FengChairMoverRobot thisRobot = new FengChairMoverRobot(oakville, roboX, roboY, directions[randomDirection], length, chairs, door);
-		thisRobot.moveChairs(referenceAve, storageStreet);
+		FengChairMoverRobot thisRobot = new FengChairMoverRobot(oakville, roboX, roboY, directions[randomDirection], length, chairs, door, referenceAve, storageStreet);
+		thisRobot.moveChairs();
 	}
 
 }
