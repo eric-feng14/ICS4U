@@ -9,11 +9,6 @@ import becker.robots.*;
 public class FengChairMoverRobot extends RobotSE{
 	
 	final private static int maxStorageHeight = 10; //how much each position in the storage can contain
-	private int[] storage; //1d array representing the storage space (does not correspond to the storage's coordinates)
-	private int[][] chairs; //2d array representing the street and avenue values for each chair
-	private int lowerDoorStreet, upperDoorStreet, doorAve; //represents information about the door
-	private int depositIndex = 0; //integer used to fill up the storage space
-	private int referenceAve, storageStreet; //information used to place the chairs in storage
 	
 	/**
 	 * constructor method for creating a cleaner robot
@@ -21,26 +16,9 @@ public class FengChairMoverRobot extends RobotSE{
 	 * @param street street is the number on the vertical axis
 	 * @param avenue avenue is the number on the horizontal axis
 	 * @param d d is the direction the robot is initially facing
-	 * @length length is the length of the cafeteria
-	 * @param chairs chairs is a 2d array representing the positions of the chairs
-	 * @param door door is an array of size 2 representing the position of the door
 	 */
-	public FengChairMoverRobot(City c, int street, int avenue, Direction d, 
-			int length, int[][] chairs, int[] door, int referenceAve, int storageStreet) {
+	public FengChairMoverRobot(City c, int street, int avenue, Direction d) {
 		super(c, street, avenue, d);
-		
-		//Get chair positions and storage size
-		this.storage = new int[length];
-		this.chairs = chairs;
-		
-		//Get door position information
-		this.upperDoorStreet = door[0];
-		this.lowerDoorStreet = door[0] + 1;
-		this.doorAve = door[1];
-		
-		//Get position information about storage
-		this.referenceAve = referenceAve;
-		this.storageStreet = storageStreet;
 	}
 	
 	/**
@@ -48,58 +26,74 @@ public class FengChairMoverRobot extends RobotSE{
 	 * @param referenceAve referenceAve is the leftmost Avenue within the room
 	 * @param storageStreet storageStreet is the the street where the storage should be placed
 	 */
-	public void moveChairs() {
-		/*
-		 * When you're bringing a chair from the cafeteria to the storage space, it is a better idea to
-		 * go to the lower door. When you're coming from the storage to the cafeteria, it is a better idea 
-		 * to go to the upper door. See goToPosition() to understand why. 
-		 */
+	public void moveChairs(int numOfChairs) {
+		//First two values represent the door's coordinates. Last two values represent the bottom left of the storage
+		int[] info = getDoorAndStorageInfo();
 		
-		//Edge case: the first iteration starts differently; the robot spawns within the cafeteria, not the storage
-		this.goToPosition(this.chairs[0][0], this.chairs[0][1]);
-		this.pickUpChair();
-		this.goToPosition(this.lowerDoorStreet, this.doorAve);
-		this.deposit(storageStreet, referenceAve); //first deposit
-
-		for (int i = 1; i < this.chairs.length; i++) {		
-			this.getAndDepositChair(i);
+		int rowNum = 0;
+		int chairCount = 0;
+		while (chairCount < numOfChairs) {
+			this.turnLeft();
+			this.continueMoving();
+			break;
 		}
 	}
 	
-	private void getAndDepositChair(int chairNum) {
-		this.goToPosition(this.upperDoorStreet, this.doorAve);
-		this.goToPosition(this.chairs[chairNum][0], this.chairs[chairNum][1]);
+	private void depositChair(int street, int avenue) {
 		this.pickUpChair();
-		this.goToPosition(this.lowerDoorStreet, this.doorAve);
+		this.goToPosition(street, avenue);
 		
-		if (positionIsFull()) {
-			this.depositIndex++;
-			this.referenceAve++;
-		}
-		this.deposit(this.storageStreet, this.referenceAve);
-	}
-	
-	/**
-	 * determines whether the storage is full at the previous position
-	 * @return returns a boolean representing whether the storage is currently full
-	 */
-	private boolean positionIsFull() {
-		if (this.storage[this.depositIndex] == maxStorageHeight) {
-			return true;
-		}
-		return false;
-	}
-	
-	private void deposit(int street, int ave) {
-		this.goToPosition(street, ave);
-		this.placeChair();
-		this.storage[this.depositIndex]++;
-		this.exitStorage();
 	}
 	
 	private void exitStorage() {
 		this.turnNorth();
 		if (this.frontIsClear()) {
+			this.move();
+		}
+	}
+	
+	private int[] getDoorAndStorageInfo() {
+		int[] positions = new int[4];
+		this.moveToBottomLeftCaf();
+		positions[3] = this.getAvenue();
+		
+		//Continue searching for the door
+		while (true) {
+			if (this.frontIsClear()) {
+				positions[0] = this.getStreet();
+				positions[1] = this.getAvenue();
+				//Move through the door to the storage to find the street of where the storage is located
+				this.continueMoving();
+				positions[2] = this.getStreet();
+				break;
+			}
+			moveNextPosition();
+		}
+		//Return to original position
+		this.turnAround();
+		while (this.getStreet() > positions[0]) {
+			this.move();
+		}
+		
+		return positions;
+	}
+	
+	private void moveNextPosition() {
+		this.turnLeft();
+		this.move();
+		this.turnRight();
+	}
+	
+	private void moveToBottomLeftCaf() {
+		this.turnSouth();
+		this.continueMoving();
+		this.turnWest();
+		this.continueMoving();
+		this.turnLeft();
+	}
+	
+	private void continueMoving() {
+		while (this.frontIsClear()) {
 			this.move();
 		}
 	}

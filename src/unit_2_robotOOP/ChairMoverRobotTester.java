@@ -12,25 +12,9 @@ public class ChairMoverRobotTester {
 	//Is this okay?
 	private static Random generator = new Random();
 	
-	private static int[][] setupAndStoreChairs(City c, int refStreet, int refAve, int length, int height, int numOfChairs) {
-		int[][] chairs = new int[numOfChairs][2]; //contains pairs of integers representing the locations of the chairs
-		//Randomly fill with chairs
-		for (int i = 0; i < numOfChairs; i++) {
-			int chairStreet = generator.nextInt(height) + refStreet; //represents the street that the chair is on. range = [refStreet, height+refStreet-1]
-			int chairAve = generator.nextInt(length) + refAve; //represents the avenue that the chair is on. range = [refAve, length+refAve-1]
-			Thing thisChair = new Thing(c, chairStreet, chairAve);
-			chairs[i][0] = chairStreet;
-			chairs[i][1] = chairAve;
-		}
-		return chairs;
-	}
-	
-	private static int[] setupBoundariesAndGetDoor(City c, int refStreet, int refAve, int separation, int length, int height) {
+	private static void setup(City c, int refStreet, int refAve, int separation, int length, int height, int numOfChairs) {
 		//the wall that will be missing, representing the door. range = [refAve, length+refAve-1] (both inclusive)
 		int randomIndex = generator.nextInt(length) + refAve;
-		
-		//Door position
-		int[] door = {height+refStreet-1, 0};
 		
 		//Create the horizontal walls
 		for (int i = refAve; i < length + refAve; i++) {
@@ -38,8 +22,6 @@ public class ChairMoverRobotTester {
 			Wall storageWall = new Wall(c, refStreet + height + separation, i, Direction.SOUTH);
 			if (i != randomIndex) {
 				Wall bottomWall = new Wall(c, refStreet + height - 1, i, Direction.SOUTH);
-			} else { //save the position of the wall
-				door[1] = i;
 			}
 		}
 		
@@ -50,10 +32,15 @@ public class ChairMoverRobotTester {
 		}
 		
 		//Draw the sides of the storage
-		Wall leftStorage = new Wall(c, refStreet + height + separation, refAve, Direction.WEST);
-		Wall rightStorage = new Wall(c, refStreet + height + separation, refAve+length-1, Direction.EAST);
+		Wall leftStorageWall = new Wall(c, refStreet + height + separation, refAve, Direction.WEST);
+		Wall rightStorageWall = new Wall(c, refStreet + height + separation, refAve+length-1, Direction.EAST);
 		
-		return door;
+		//Randomly fill with chairs
+		for (int i = 0; i < numOfChairs; i++) {
+			int chairStreet = generator.nextInt(height) + refStreet; //represents the street that the chair is on. range = [refStreet, height+refStreet-1]
+			int chairAve = generator.nextInt(length) + refAve; //represents the avenue that the chair is on. range = [refAve, length+refAve-1]
+			Thing thisChair = new Thing(c, chairStreet, chairAve);
+		}
 	}
 	
 	
@@ -73,17 +60,15 @@ public class ChairMoverRobotTester {
 		int randomDirection = generator.nextInt(directions.length);
 		
 		//Setup the drawing so that its ready for the robot to traverse (e.g. clean chairs up)
-		int[] door = setupBoundariesAndGetDoor(oakville, referenceStreet, referenceAve, separation, length, height);
-		int[][] chairs = setupAndStoreChairs(oakville, referenceStreet, referenceAve, length, height, numOfChairs);
+		setup(oakville, referenceStreet, referenceAve, separation, length, height, numOfChairs);
 		
 		//Randomize the robot's position within the cafeteria
 		int roboX = generator.nextInt(height) + referenceStreet; //represents the street that the robot is on
 		int roboY = generator.nextInt(length) + referenceAve; //represents the avenue that the robot is on
 		
-		//Manage storage
-		int storageStreet = referenceStreet + height + separation;
-		FengChairMoverRobot thisRobot = new FengChairMoverRobot(oakville, roboX, roboY, directions[randomDirection], length, chairs, door, referenceAve, storageStreet);
-		thisRobot.moveChairs();
+		//Create the robot and use it to clean the room
+		FengChairMoverRobot thisRobot = new FengChairMoverRobot(oakville, roboX, roboY, directions[randomDirection]);
+		thisRobot.moveChairs(numOfChairs);
 	}
 
 }
