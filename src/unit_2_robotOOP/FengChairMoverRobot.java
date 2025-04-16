@@ -11,7 +11,7 @@ public class FengChairMoverRobot extends RobotSE{
 	final private static int maxStorageHeight = 10; //how much each position in the storage can contain
 	
 	private int chairsStacked = 0, depositIndexIncrease = 0;
-	private int[] door;
+	private int[] door = new int[2];
 	private int storageStreet, storageAve;
 	private boolean onAlternateRow = true;
 	
@@ -105,54 +105,45 @@ public class FengChairMoverRobot extends RobotSE{
 	}
 	
 	private void getDoorAndStorageInfo() {
-		this.moveToLeftCaf();
-		
-		if (this.isAtDoor()) {
-			this.door[0] = this.getStreet();
-			this.door[1] = this.getAvenue();
-			return;
-		}
+		//we need to ensure that the door is found because there is the possibility that the door is at the leftmost position in the caf
+		boolean doorFound = false; 
+		this.moveBottomLeft();
 		this.turnEast();
-		
-		//Continue searching for the door
 		while (this.frontIsClear()) {
 			this.move();
-			this.turnRight();
-			if (this.isAtDoor()) {
+			this.turnSouth();
+			if (this.frontIsClear()) {
 				this.door[0] = this.getStreet();
 				this.door[1] = this.getAvenue();
+				doorFound = true;
 				break;
 			}
+			this.turnEast();
 			
 		}
-		
-		System.out.println(this.door[0]);
-		System.out.println(this.door[1]);
-	}
-	
-	/**
-	 * scans downwards and attempts to find the position of the door if the robot can move to it
-	 */
-	private boolean isAtDoor() {
-		this.turnSouth();
-		while (this.frontIsClear()) {
-			this.move();
-			this.turnWest();
-			if (! this.frontIsClear()) {
-				this.turnEast();
-				if (! this.frontIsClear()) {
-					return true;
-				}
-			}
+
+		//Edge case, door must be at the leftmost position of the caf
+		if (! doorFound) {
+			this.turnNorth();
+			this.continueMoving();
+			//We don't need to consider because the default is the leftmost
+			this.door[0] = this.getStreet() - 1;
 		}
-		return false;
+		this.turnSouth();
+		this.continueMoving();
+		this.turnWest();
+		this.continueMoving();
+		this.storageStreet = this.getStreet();
+		this.storageAve = this.getAvenue();
+		
 	}
 	
-	private void moveToLeftCaf() {
+	private void moveBottomLeft() {
 		this.turnWest();
-		this.storageAve = this.getAvenue();
 		this.continueMoving();
-		this.turnLeft();
+		this.door[1] = this.getAvenue();
+		this.turnSouth();
+		this.continueMoving();
 	}
 	
 	private void continueMoving() {
@@ -173,15 +164,6 @@ public class FengChairMoverRobot extends RobotSE{
 		}
 	}
 	
-	/**
-	 * goes to a specific intersection (street, avenue)
-	 * this function first moves horizontally then moves vertically.
-	 * this is important because it can cause boundary collisions
-	 * e.g. if you tried to move from the upper door to the storage area, you would collide.
-	 * to solve this, simply create an upper door and lower door
-	 * @param street
-	 * @param avenue
-	 */
 	private void goToPosition(int street, int avenue) {
 		int horizontalDistance = this.getAvenue() - avenue;
 		int verticalDistance = this.getStreet() - street;

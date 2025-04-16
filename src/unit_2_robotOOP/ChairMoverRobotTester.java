@@ -13,9 +13,9 @@ public class ChairMoverRobotTester {
 	private static Random generator = new Random();
 	
 	private static void setup(City c, int refStreet, int refAve, int separation, int length, int height, int numOfChairs) {
-		int[] door = new int[2];
 		//the wall that will be missing, representing the door. range = [refAve, length+refAve-1] (both inclusive)
-		int randomIndex = generator.nextInt(length) + refAve;
+//		int randomIndex = generator.nextInt(length) + refAve;
+		int randomIndex = refAve;
 		
 		//Create the horizontal walls
 		for (int i = refAve; i < length + refAve; i++) {
@@ -23,9 +23,6 @@ public class ChairMoverRobotTester {
 			Wall storageWall = new Wall(c, refStreet + height + separation, i, Direction.SOUTH);
 			if (i != randomIndex) {
 				Wall bottomWall = new Wall(c, refStreet + height - 1, i, Direction.SOUTH);
-			} else {
-				door[0] = refStreet + height - 1;
-				door[1] = i;
 			}
 		}
 		
@@ -71,7 +68,6 @@ public class ChairMoverRobotTester {
 		int roboY = generator.nextInt(length) + referenceAve; //represents the avenue that the robot is on
 		
 		//Create the robot and use it to clean the room
-		int storageStreet = referenceStreet + height + separation;
 		FengChairMoverRobot thisRobot = new FengChairMoverRobot(oakville, roboX, roboY, directions[randomDirection]);
 		thisRobot.moveChairs();
 	}
