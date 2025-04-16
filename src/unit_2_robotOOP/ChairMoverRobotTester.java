@@ -75,7 +75,7 @@ public class ChairMoverRobotTester {
 		//Create the robot and use it to clean the room
 		int storageStreet = referenceStreet + height + separation;
 		FengChairMoverRobot thisRobot = new FengChairMoverRobot(oakville, roboX, roboY, directions[randomDirection], door, storageStreet, referenceAve);
-		thisRobot.moveChairs(numOfChairs);
+		thisRobot.moveChairs();
 	}
 
 }

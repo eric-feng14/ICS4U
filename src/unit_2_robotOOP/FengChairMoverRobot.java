@@ -9,6 +9,7 @@ import becker.robots.*;
 public class FengChairMoverRobot extends RobotSE{
 	
 	final private static int maxStorageHeight = 10; //how much each position in the storage can contain
+	
 	private int chairsStacked = 0, depositIndexIncrease = 0;
 	private int[] door;
 	private int storageStreet, storageAve;
@@ -30,10 +31,9 @@ public class FengChairMoverRobot extends RobotSE{
 	
 	/**
 	 * main logic for cleaning up the room
-	 * @param referenceAve referenceAve is the leftmost Avenue within the room
-	 * @param storageStreet storageStreet is the the street where the storage should be placed
 	 */
-	public void moveChairs(int numOfChairs) {
+	public void moveChairs() {
+		this.getDoorAndStorageInfo();
 		this.goToPosition(this.door[0], this.door[1]);
 		this.turnEast();
 		this.continueMoving();
@@ -58,17 +58,18 @@ public class FengChairMoverRobot extends RobotSE{
 				totalChairCount++;
 			}
 			
-			//Termination condition
-			if (totalChairCount == numOfChairs) {
-				break;
-			}
-			
 			if (this.onAlternateRow) {
 				this.turnRight();
+				if (! this.frontIsClear()) {
+					break;
+				}
 				this.move();
 				this.turnRight();
 			} else {
 				this.turnLeft();
+				if (! this.frontIsClear()) {
+					break;
+				}
 				this.move();
 				this.turnLeft();
 			}
@@ -106,30 +107,46 @@ public class FengChairMoverRobot extends RobotSE{
 		}
 	}
 	
-	private int[] getDoorAndStorageInfo() {
-		int[] positions = new int[4];
-		this.moveToBottomLeftCaf();
-		positions[3] = this.getAvenue();
+	private void getDoorAndStorageInfo() {
+		this.moveToLeftCaf();
+		if (this.isAtDoor()) {
+			this.door[0] = this.getStreet();
+			this.door[1] = this.getAvenue();
+			return;
+		}
+		this.turnEast();
 		
 		//Continue searching for the door
-		while (true) {
-			if (this.frontIsClear()) {
-				positions[0] = this.getStreet();
-				positions[1] = this.getAvenue();
-				//Move through the door to the storage to find the street of where the storage is located
-				this.continueMoving();
-				positions[2] = this.getStreet();
+		while (this.frontIsClear()) {
+			this.move();
+			this.turnRight();
+			if (this.isAtDoor()) {
+				this.door[0] = this.getStreet();
+				this.door[1] = this.getAvenue();
 				break;
 			}
 			moveNextPosition();
 		}
-		//Return to original position
-		this.turnAround();
-		while (this.getStreet() > positions[0]) {
-			this.move();
-		}
 		
-		return positions;
+		
+	}
+	
+	/**
+	 * scans downwards and attempts to find the position of the door if the robot can move to it
+	 */
+	private boolean isAtDoor() {
+		this.turnSouth();
+		while (this.frontIsClear()) {
+			this.move();
+			this.turnWest();
+			if (! this.frontIsClear()) {
+				this.turnEast();
+				if (! this.frontIsClear()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	private void moveNextPosition() {
@@ -138,10 +155,9 @@ public class FengChairMoverRobot extends RobotSE{
 		this.turnRight();
 	}
 	
-	private void moveToBottomLeftCaf() {
-		this.turnSouth();
-		this.continueMoving();
+	private void moveToLeftCaf() {
 		this.turnWest();
+		this.storageAve = this.getAvenue();
 		this.continueMoving();
 		this.turnLeft();
 	}
