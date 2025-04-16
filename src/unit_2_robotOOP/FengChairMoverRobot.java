@@ -9,6 +9,10 @@ import becker.robots.*;
 public class FengChairMoverRobot extends RobotSE{
 	
 	final private static int maxStorageHeight = 10; //how much each position in the storage can contain
+	private int chairsStacked = 0, depositIndexIncrease = 0;
+	private int[] door;
+	private int storageStreet, storageAve;
+	private boolean onAlternateRow = true;
 	
 	/**
 	 * constructor method for creating a cleaner robot
@@ -17,8 +21,11 @@ public class FengChairMoverRobot extends RobotSE{
 	 * @param avenue avenue is the number on the horizontal axis
 	 * @param d d is the direction the robot is initially facing
 	 */
-	public FengChairMoverRobot(City c, int street, int avenue, Direction d) {
+	public FengChairMoverRobot(City c, int street, int avenue, Direction d, int[] door, int storageStreet, int storageAve) {
 		super(c, street, avenue, d);
+		this.door = door;
+		this.storageStreet = storageStreet;
+		this.storageAve = storageAve;
 	}
 	
 	/**
@@ -27,28 +34,75 @@ public class FengChairMoverRobot extends RobotSE{
 	 * @param storageStreet storageStreet is the the street where the storage should be placed
 	 */
 	public void moveChairs(int numOfChairs) {
-		//First two values represent the door's coordinates. Last two values represent the bottom left of the storage
-		int[] info = getDoorAndStorageInfo();
+		this.goToPosition(this.door[0], this.door[1]);
+		this.turnEast();
+		this.continueMoving();
+		this.turnWest();
 		
-		int rowNum = 0;
-		int chairCount = 0;
-		while (chairCount < numOfChairs) {
-			this.turnLeft();
-			this.continueMoving();
-			break;
+		int totalChairCount = 0;
+		
+		while (true) {
+			while (this.frontIsClear()) {
+				if (this.canPickThing()) {
+					this.pickUpChair();
+					this.depositChairAndReturn();
+					totalChairCount++;
+				} else {
+					this.move();
+				}
+			}
+			//Add the missing check
+			while (this.canPickThing()) {
+				this.pickUpChair();
+				this.depositChairAndReturn();
+				totalChairCount++;
+			}
+			
+			//Termination condition
+			if (totalChairCount == numOfChairs) {
+				break;
+			}
+			
+			if (this.onAlternateRow) {
+				this.turnRight();
+				this.move();
+				this.turnRight();
+			} else {
+				this.turnLeft();
+				this.move();
+				this.turnLeft();
+			}
+			
+			this.onAlternateRow = ! this.onAlternateRow;
 		}
-	}
-	
-	private void depositChair(int street, int avenue) {
-		this.pickUpChair();
-		this.goToPosition(street, avenue);
-		
-	}
-	
-	private void exitStorage() {
+		this.goToPosition(this.door[0] + 1, this.door[1]);
+		this.goToPosition(this.storageStreet-1, this.storageAve + this.depositIndexIncrease);
 		this.turnNorth();
-		if (this.frontIsClear()) {
-			this.move();
+	}
+	
+	
+	private void depositChairAndReturn() {
+		int prevStreet = this.getStreet();
+		int prevAve = this.getAvenue();
+
+		this.goToPosition(this.door[0]+1, this.door[1]);
+		this.goToPosition(this.storageStreet, this.storageAve + this.depositIndexIncrease);
+		
+		this.placeChair();
+		this.chairsStacked++;
+		
+		if (this.chairsStacked == maxStorageHeight) {
+			this.depositIndexIncrease++;
+			this.chairsStacked = 0;
+		}
+		
+		this.goToPosition(this.door[0], this.door[1]);
+		this.goToPosition(prevStreet, prevAve);
+		
+		if (this.onAlternateRow) {
+			this.turnWest();
+		} else {
+			this.turnEast();
 		}
 	}
 	

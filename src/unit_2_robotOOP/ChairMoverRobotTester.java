@@ -12,7 +12,8 @@ public class ChairMoverRobotTester {
 	//Is this okay?
 	private static Random generator = new Random();
 	
-	private static void setup(City c, int refStreet, int refAve, int separation, int length, int height, int numOfChairs) {
+	private static int[] setup(City c, int refStreet, int refAve, int separation, int length, int height, int numOfChairs) {
+		int[] door = new int[2];
 		//the wall that will be missing, representing the door. range = [refAve, length+refAve-1] (both inclusive)
 		int randomIndex = generator.nextInt(length) + refAve;
 		
@@ -22,6 +23,9 @@ public class ChairMoverRobotTester {
 			Wall storageWall = new Wall(c, refStreet + height + separation, i, Direction.SOUTH);
 			if (i != randomIndex) {
 				Wall bottomWall = new Wall(c, refStreet + height - 1, i, Direction.SOUTH);
+			} else {
+				door[0] = refStreet + height - 1;
+				door[1] = i;
 			}
 		}
 		
@@ -41,6 +45,8 @@ public class ChairMoverRobotTester {
 			int chairAve = generator.nextInt(length) + refAve; //represents the avenue that the chair is on. range = [refAve, length+refAve-1]
 			Thing thisChair = new Thing(c, chairStreet, chairAve);
 		}
+		
+		return door;
 	}
 	
 	
@@ -60,14 +66,15 @@ public class ChairMoverRobotTester {
 		int randomDirection = generator.nextInt(directions.length);
 		
 		//Setup the drawing so that its ready for the robot to traverse (e.g. clean chairs up)
-		setup(oakville, referenceStreet, referenceAve, separation, length, height, numOfChairs);
+		int[] door = setup(oakville, referenceStreet, referenceAve, separation, length, height, numOfChairs);
 		
 		//Randomize the robot's position within the cafeteria
 		int roboX = generator.nextInt(height) + referenceStreet; //represents the street that the robot is on
 		int roboY = generator.nextInt(length) + referenceAve; //represents the avenue that the robot is on
 		
 		//Create the robot and use it to clean the room
-		FengChairMoverRobot thisRobot = new FengChairMoverRobot(oakville, roboX, roboY, directions[randomDirection]);
+		int storageStreet = referenceStreet + height + separation;
+		FengChairMoverRobot thisRobot = new FengChairMoverRobot(oakville, roboX, roboY, directions[randomDirection], door, storageStreet, referenceAve);
 		thisRobot.moveChairs(numOfChairs);
 	}
 
