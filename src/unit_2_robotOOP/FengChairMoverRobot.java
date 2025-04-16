@@ -22,11 +22,8 @@ public class FengChairMoverRobot extends RobotSE{
 	 * @param avenue avenue is the number on the horizontal axis
 	 * @param d d is the direction the robot is initially facing
 	 */
-	public FengChairMoverRobot(City c, int street, int avenue, Direction d, int[] door, int storageStreet, int storageAve) {
+	public FengChairMoverRobot(City c, int street, int avenue, Direction d) {
 		super(c, street, avenue, d);
-		this.door = door;
-		this.storageStreet = storageStreet;
-		this.storageAve = storageAve;
 	}
 	
 	/**
@@ -109,6 +106,7 @@ public class FengChairMoverRobot extends RobotSE{
 	
 	private void getDoorAndStorageInfo() {
 		this.moveToLeftCaf();
+		
 		if (this.isAtDoor()) {
 			this.door[0] = this.getStreet();
 			this.door[1] = this.getAvenue();
@@ -125,10 +123,11 @@ public class FengChairMoverRobot extends RobotSE{
 				this.door[1] = this.getAvenue();
 				break;
 			}
-			moveNextPosition();
+			
 		}
 		
-		
+		System.out.println(this.door[0]);
+		System.out.println(this.door[1]);
 	}
 	
 	/**
@@ -147,12 +146,6 @@ public class FengChairMoverRobot extends RobotSE{
 			}
 		}
 		return false;
-	}
-	
-	private void moveNextPosition() {
-		this.turnLeft();
-		this.move();
-		this.turnRight();
 	}
 	
 	private void moveToLeftCaf() {
