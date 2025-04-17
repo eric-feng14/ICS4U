@@ -9,16 +9,28 @@ import java.util.*;
  */
 public class ChairMoverRobotTester {
 	
+	//Helpful Random object used amongst various methods 
 	private static Random generator = new Random();
 	
+	/**
+	 * sets up the whole map for the robot
+	 * @param c c is the city to draw the map on
+	 * @param refStreet refStreet is the street of the top left corner of the cafeteria
+	 * @param refAve refAve is the avenue of the top left corner of the cafeteria
+	 * @param separation separation is the distance between the cafeteria and the storage
+	 * @param length length is the length of the cafeteria
+	 * @param height height is the height of the cafeteria
+	 * @param numOfChairs numOfChairs is the number of chairs the robot needs to clean
+	 */
 	private static void setup(City c, int refStreet, int refAve, int separation, int length, int height, int numOfChairs) {
-		//the wall that will be missing, representing the door. range = [refAve, length+refAve-1] (both inclusive)
+		//the wall that will be missing, representing the door
 		int randomIndex = generator.nextInt(length) + refAve;
 		
 		//Create the horizontal walls
 		for (int i = refAve; i < length + refAve; i++) {
 			Wall topWall = new Wall(c, refStreet, i, Direction.NORTH);
 			Wall storageWall = new Wall(c, refStreet + height + separation, i, Direction.SOUTH);
+			//Make the wall if the current position is not equal to the door's position
 			if (i != randomIndex) {
 				Wall bottomWall = new Wall(c, refStreet + height - 1, i, Direction.SOUTH);
 			}
@@ -36,14 +48,16 @@ public class ChairMoverRobotTester {
 		
 		//Randomly fill with chairs
 		for (int i = 0; i < numOfChairs; i++) {
-			int chairStreet = generator.nextInt(height) + refStreet; //represents the street that the chair is on. range = [refStreet, height+refStreet-1]
-			int chairAve = generator.nextInt(length) + refAve; //represents the avenue that the chair is on. range = [refAve, length+refAve-1]
+			int chairStreet = generator.nextInt(height) + refStreet; 
+			int chairAve = generator.nextInt(length) + refAve;
 			Thing thisChair = new Thing(c, chairStreet, chairAve);
 		}
 	}
 	
-	
-
+	/**
+	 * Program execution starts here
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		//Declare constants
 		final int referenceStreet = 1, referenceAve = 1; //top left of the cafeteria
@@ -58,7 +72,7 @@ public class ChairMoverRobotTester {
 		Direction[] directions = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
 		int randomDirection = generator.nextInt(directions.length);
 		
-		//Setup the drawing so that its ready for the robot to traverse (e.g. clean chairs up)
+		//Setup the drawing so that its ready for the robot to traverse
 		setup(oakville, referenceStreet, referenceAve, separation, length, height, numOfChairs);
 		
 		//Randomize the robot's position within the cafeteria
