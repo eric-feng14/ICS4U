@@ -9,7 +9,6 @@ import java.util.*;
  */
 public class ChairMoverRobotTester {
 	
-	//Is this okay?
 	private static Random generator = new Random();
 	
 	private static void setup(City c, int refStreet, int refAve, int separation, int length, int height, int numOfChairs) {

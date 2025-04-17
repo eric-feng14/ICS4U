@@ -30,50 +30,87 @@ public class FengChairMoverRobot extends RobotSE{
 	 * main logic for cleaning up the room
 	 */
 	public void moveChairs() {
-		int totalChairCount = 0;
 		this.getDoorAndStorageInfo();
 		this.prepareToClean();
 		
 		while (true) {
-			while (this.frontIsClear()) {
-				if (this.canPickThing()) {
-					this.pickUpChair();
-					this.depositChairAndReturn();
-					totalChairCount++;
-				} else {
-					this.move();
-				}
+			this.checkForwards();
+			if (this.endReached()) {
+				break;
 			}
-			//Add the missing check for the end of the row
-			while (this.canPickThing()) {
-				this.pickUpChair();
-				this.depositChairAndReturn();
-				totalChairCount++;
-			}
-			
-			if (this.onAlternateRow) {
-				this.turnRight();
-				if (! this.frontIsClear()) {
-					break;
-				}
-				this.move();
-				this.turnRight();
-			} else {
-				this.turnLeft();
-				if (! this.frontIsClear()) {
-					break;
-				}
-				this.move();
-				this.turnLeft();
-			}
-			
-			this.onAlternateRow = ! this.onAlternateRow;
+			this.switchRows();
 		}
+		this.finishCleaning();
+	}
+	
+	/**
+	 * places the robot in the desired position after it has finished cleaning
+	 */
+	private void finishCleaning() {
 		this.goToPosition(this.door[0] + 1, this.door[1]);
 		this.goToPosition(this.storageStreet-1, this.storageAve + this.depositIndexIncrease);
 		this.turnNorth();
 	}
 	
+	/**
+	 * checks if the robot has finished scanning everything
+	 * @return returns a boolean value representing if the robot is finished cleaning
+	 */
+	private boolean endReached() {
+		this.turnNorth();
+		
+		//If the robot is blocked by a wall on the north side, it is finished cleaning
+		if (!this.frontIsClear()) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * modifies the robots position so that it can scan the next row above
+	 */
+	private void switchRows() {
+		//If the robot is moving to the left
+		if (this.onAlternateRow) {
+			this.move();
+			this.turnRight();
+		} else { //If the robot is moving to the right
+			this.move();
+			this.turnLeft();
+		}
+		//Reverse the boolean for each switch
+		this.onAlternateRow = ! this.onAlternateRow;
+	}
+	
+	/**
+	 * continue moving forward and checking if the robot can pick up a chair
+	 */
+	private void checkForwards() {
+		//keep going if robot is not blocked
+		while (this.frontIsClear()) {
+			this.continuePickingChairs();
+			this.move();
+		}
+		
+		//Add the missing check for the end of the row
+		this.continuePickingChairs();
+	}
+	
+	/**
+	 * continues picking chairs and depositing them in the storage at a singular position
+	 */
+	private void continuePickingChairs() {
+		//While there are chairs to be picked up
+		while (this.canPickThing()) {
+			this.pickUpChair();
+			this.depositChairAndReturn();
+		}
+	}
+	
+	/**
+	 * After the robot has scanned everything and gathered its information,
+	 * it will go to the cafeteria and start cleaning.
+	 */
 	private void prepareToClean() {
 		this.goToPosition(this.door[0], this.door[1]);
 		this.turnEast();
@@ -81,16 +118,23 @@ public class FengChairMoverRobot extends RobotSE{
 		this.turnWest();
 	}
 	
+	/**
+	 * 
+	 */
 	private void depositChairAndReturn() {
+		//Save the robot's original position
 		int prevStreet = this.getStreet();
 		int prevAve = this.getAvenue();
 
+		//Move to the desired storage area
 		this.goToPosition(this.door[0]+1, this.door[1]);
 		this.goToPosition(this.storageStreet, this.storageAve + this.depositIndexIncrease);
 		
+		//put the chair in storage
 		this.placeChair();
 		this.chairsStacked++;
 		
+		//Keep track of the chairs so that they can be placed in an organized manner (e.g. 10 at each spot)
 		if (this.chairsStacked == maxStorageHeight) {
 			this.depositIndexIncrease++;
 			this.chairsStacked = 0;
@@ -118,6 +162,7 @@ public class FengChairMoverRobot extends RobotSE{
 			this.collectDoorInfo();
 		}
 		
+		//Collect storage information
 		this.moveToBottomLeftStorage();
 	}
 	
