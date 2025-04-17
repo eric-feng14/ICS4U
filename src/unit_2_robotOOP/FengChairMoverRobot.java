@@ -30,13 +30,9 @@ public class FengChairMoverRobot extends RobotSE{
 	 * main logic for cleaning up the room
 	 */
 	public void moveChairs() {
-		this.getDoorAndStorageInfo();
-		this.goToPosition(this.door[0], this.door[1]);
-		this.turnEast();
-		this.continueMoving();
-		this.turnWest();
-		
 		int totalChairCount = 0;
+		this.getDoorAndStorageInfo();
+		this.prepareToClean();
 		
 		while (true) {
 			while (this.frontIsClear()) {
@@ -48,7 +44,7 @@ public class FengChairMoverRobot extends RobotSE{
 					this.move();
 				}
 			}
-			//Add the missing check
+			//Add the missing check for the end of the row
 			while (this.canPickThing()) {
 				this.pickUpChair();
 				this.depositChairAndReturn();
@@ -78,6 +74,12 @@ public class FengChairMoverRobot extends RobotSE{
 		this.turnNorth();
 	}
 	
+	private void prepareToClean() {
+		this.goToPosition(this.door[0], this.door[1]);
+		this.turnEast();
+		this.continueMoving();
+		this.turnWest();
+	}
 	
 	private void depositChairAndReturn() {
 		int prevStreet = this.getStreet();
@@ -106,64 +108,93 @@ public class FengChairMoverRobot extends RobotSE{
 	
 	private void getDoorAndStorageInfo() {
 		//we need to ensure that the door is found because there is the possibility that the door is at the leftmost position in the caf
-		boolean doorFound = false; 
+		boolean doorFound; 
 		this.moveBottomLeft();
 		this.turnEast();
-		while (this.frontIsClear()) {
-			this.move();
-			this.turnSouth();
-			if (this.frontIsClear()) {
-				this.door[0] = this.getStreet();
-				this.door[1] = this.getAvenue();
-				doorFound = true;
-				break;
-			}
-			this.turnEast();
-			
-		}
+		doorFound = this.findDoor();
 
 		//Edge case, door must be at the leftmost position of the caf
 		if (! doorFound) {
-			this.turnNorth();
-			this.continueMoving();
-			//We don't need to consider because the default is the leftmost
-			this.door[0] = this.getStreet() - 1;
+			this.collectDoorInfo();
 		}
+		
+		this.moveToBottomLeftStorage();
+	}
+	
+	private void collectDoorInfo() {
+		this.turnNorth();
+		this.continueMoving();
+		//We don't need to consider the avenue because the default is the leftmost
+		this.door[0] = this.getStreet() - 1;
+	}
+	
+	private void moveToBottomLeftStorage() {
 		this.turnSouth();
 		this.continueMoving();
 		this.turnWest();
 		this.continueMoving();
 		this.storageStreet = this.getStreet();
 		this.storageAve = this.getAvenue();
-		
+	}
+	
+	private boolean findDoor() {
+		while (this.frontIsClear()) {
+			this.move();
+			this.turnSouth();
+			if (this.frontIsClear()) {
+				this.door[0] = this.getStreet();
+				this.door[1] = this.getAvenue();
+				return true;
+			}
+			this.turnEast();
+		}
+		return false;
 	}
 	
 	private void moveBottomLeft() {
 		this.turnWest();
 		this.continueMoving();
 		this.door[1] = this.getAvenue();
+		
 		this.turnSouth();
 		this.continueMoving();
 	}
 	
+	/**
+	 * continues moving in one direction until the robot is blocked by a barrier
+	 */
 	private void continueMoving() {
+		//while the robot can move forward (is not blocked)
 		while (this.frontIsClear()) {
 			this.move();
 		}
 	}
 	
+	/**
+	 * places one chair down on the ground if the robot can
+	 */
 	private void placeChair() {
+		//If the robot has a chair in its backpack
 		if (this.countThingsInBackpack() > 0) {
 			this.putThing();
 		}
 	}
 	
+	/**
+	 * picks up one chair up and stores it in the backpack if the robot can
+	 */
 	private void pickUpChair() {
+		//If there is a chair at the robot's current position
 		if (this.canPickThing()) {
 			this.pickThing();
 		}
 	}
 	
+	/**
+	 * moves the robot to a new position (street, avenue). 
+	 * @param street street is the street to move to
+	 * @param avenue avenue is the avenue to move to
+	 */
 	private void goToPosition(int street, int avenue) {
 		int horizontalDistance = this.getAvenue() - avenue;
 		int verticalDistance = this.getStreet() - street;

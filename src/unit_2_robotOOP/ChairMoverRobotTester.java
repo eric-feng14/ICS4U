@@ -14,8 +14,7 @@ public class ChairMoverRobotTester {
 	
 	private static void setup(City c, int refStreet, int refAve, int separation, int length, int height, int numOfChairs) {
 		//the wall that will be missing, representing the door. range = [refAve, length+refAve-1] (both inclusive)
-//		int randomIndex = generator.nextInt(length) + refAve;
-		int randomIndex = refAve;
+		int randomIndex = generator.nextInt(length) + refAve;
 		
 		//Create the horizontal walls
 		for (int i = refAve; i < length + refAve; i++) {
