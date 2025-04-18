@@ -23,103 +23,99 @@ public class TunnelRobot extends RobotSE{
 	 * main loop for collecting the things
 	 */
 	public void run() {
-		while (true) {
-			this.findNextThing();
+		boolean targetReached = false;
+		//While we haven't reached the end of the tunnel
+		while (! targetReached) {
+			this.pickNextThing();
+			//Checks if the we have reached the end of the tunnel
 			if (this.endReached()) {
-				this.goBack();
-				break;
+				targetReached = true;
 			}
-			this.goBack();
+			this.returnToStart();
+			this.deposit();
 		}
-		
+		this.exitPile();
 	}
 	
 	/**
-	 * goes back from the picked up thing and returns it back to the starting position
+	 * exit the pile by moving once toward the tunnel
 	 */
-	private void goBack() {
-		this.continueMoving();
-		this.deposit();
+	private void exitPile() {
+		this.move();
 	}
 	
 	/**
-	 * continues moving in one direction until a boundary is hit
+	 * Moves the robot back to the starting pile after picking up a thing
+	 */
+	private void returnToStart() {
+		this.turnAround();
+		this.continueMoving();
+	}
+	
+	/**
+	 * continues moving forward until the robot is blocked by a wall
 	 */
 	private void continueMoving() {
-		this.turnAround();
-		//continuing moving backwards until the original position is reached
+		//while not blocked
 		while (this.frontIsClear()) {
 			this.move();
 		}
 	}
 	
 	/**
-	 * deposits a thing
+	 * finds the next thing in the tunnel and picks it up
+	 */
+	private void pickNextThing() {
+		//keep moving until blocked
+		while (this.frontIsClear()) {
+			this.move();
+			//found a Thing
+			if (this.canPickThing()) {
+				this.pickThing();
+				return;
+			}
+		}
+	}
+	
+
+	/**
+	 * deposits a thing and turns around to prepare for the next cycle
 	 */
 	private void deposit() {
-		//put the thing down and turn around
 		this.putThing();
 		this.turnAround();
 	}
-	
-//	/**
-//	 * finds the next thing by moving forward and checking each time
-//	 */
-//	private void findNextThing() {
-//		//Continue moving until a thing is found or the end is reached
-//		while (this.frontIsClear()) {
-//			this.move();
-//			if (this.thingPresentThenPick()) {
-//				break;
-//			}
-//		}
-//	}
 	
 	/**
 	 * determines whether the end of the tunnel has been reached
 	 * @return returns a boolean value (if the end is reached)
 	 */
 	private boolean endReached() {
-		if (! this.frontIsClear() && this.countThingsAtPos() == 1) {
+		//front is blocked and no more items to pick up in the future
+		if (! this.frontIsClear() && this.countThingsAtPos() == 0) {
 			return true;
 		}
 		return false;
 	}
 	
+	/**
+	 * counts the number of things at the robot's current position
+	 * @return returns an integer representing the num of things at the robots position
+	 */
 	private int countThingsAtPos() {
 		int counter = 0;
+		//Keep picking things up
 		while (this.canPickThing()) {
 			this.pickThing();
 			counter++;
 		}
-		this.putAllThings();
+		
+		//For loop is safer, so if things were already in the backpack, they won't be placed back down. 
+		// The function puts down every thing that has been picked up before.
+		for (int i = 0; i < counter; i++) {
+			this.putThing();
+		}
 		return counter;
-	}
-	
-	/**
-	 * finds the next thing by moving forward and checking each time
-	 * @return if the end of tunnel has been reached
-	 */
-	private void findNextThing() {
-		//Continue moving until a thing is found or the end is reached
-		while (this.frontIsClear()) {
-			this.move();
-			if (this.thingPresentThenPick()) {
-				break;
-			}
-		}
-	}
-	
-	/**
-	 * At the robot's current position, check if an item can be picked up. If so, pick it up
-	 * @return whether something can be picked
-	 */
-	private boolean thingPresentThenPick() {
-		if (this.canPickThing()) {
-			this.pickThing();
-			return true;
-		}
-		return false;
 	}
 	
 }

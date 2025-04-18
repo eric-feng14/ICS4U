@@ -19,6 +19,7 @@ public class A3E3 {
 	 */
 	public static void createBoundariesWithThings(City c, int x, int y, int size, int separation) {
 		Wall myWall = new Wall(c,x,y,Direction.WEST);
+		//Loop through the tunnel
 		for (int i = y+separation; i < y+separation+size; i++) {
 			Wall wall1 = new Wall(c,x,i,Direction.NORTH);
 			Wall wall2 = new Wall(c,x,i,Direction.SOUTH);
@@ -30,11 +31,12 @@ public class A3E3 {
 
 	public static void main(String[] args) {
 		final int robotX = 2, robotY = 2;
-		City oakville = new City();
+		final int size = 8, separation = 2;
+		City oakville = new City(3, 13);
 		oakville.showThingCounts(true);
 		TunnelRobot thisRobot = new TunnelRobot(oakville,robotX, robotY,Direction.EAST);
 		
-		createBoundariesWithThings(oakville, robotX, robotY, 8, 2);
+		createBoundariesWithThings(oakville, robotX, robotY, size, separation);
 		thisRobot.run();
 		
 

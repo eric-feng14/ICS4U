@@ -24,15 +24,6 @@ public class SpiralBot extends RobotSE{
 	 * @param numLoops numLoops the number of loops wanted
 	 */
 	public void makeSpiral(int numLoops) {
-		/*
-		 * Pattern
-		 * 2 moves of length 1
-		 * 2 moves of length 2
-		 * 2 moves of length 3
-		 * ... so on
-		 * 
-		 * 1 loop cycle is 2 steps of the pattern + 1 extra line
-		 */
 		this.pickUpEverything();
 		
 		for (int i = 1; i <= 2*numLoops; i++) {
@@ -42,6 +33,9 @@ public class SpiralBot extends RobotSE{
 		this.addEndingLine(numLoops);
 	}
 	
+	/**
+	 * picks up every thing at the robot's current position. easier for user to understand?
+	 */
 	private void pickUpEverything() {
 		this.pickAllThings();
 	}
@@ -50,6 +44,7 @@ public class SpiralBot extends RobotSE{
 	 * adds the final line of things to complete the spiral
 	 */
 	private void addEndingLine(int numLoops) {
+		//Loop the necessary amount of times to add the ending line
 		for (int i = 0; i < 2*numLoops+1; i++) {
 			depositAndMove();
 		}
@@ -59,18 +54,19 @@ public class SpiralBot extends RobotSE{
 	 * moves n time for 2 iterations
 	 * @param n distance to move for each iteration
 	 */
-	private void wrapAround(int n) {
+	private void wrapAround(int cycleLength) {
+		//Performs a cycle 2 times
 		for (int i = 0; i < 2; ++i) {
-			this.cycle(n);
+			this.cycle(cycleLength);
 		}
 	}
 	
 	/**
-	 * place n items in a row and prepare to do it for the next cycle
+	 * place n items in a row and prepare to do it for the next cycle by turning left
 	 * @param n how many items to place in a row
 	 */
-	private void cycle(int n) {
-		for (int i = 0; i < n; i++) {
+	private void cycle(int cycleLength) {
+		for (int i = 0; i < cycleLength; i++) {
 			this.depositAndMove();
 		}
 		this.turnLeft();

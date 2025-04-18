@@ -36,7 +36,7 @@ public class FengChairMoverRobot extends RobotSE{
 		
 		//Main loop to keep scanning the grid
 		while (true) {
-			this.checkForwards();
+			this.cleanRow();
 			//If there is nothing else to scan
 			if (this.endReached()) {
 				break;
@@ -85,21 +85,21 @@ public class FengChairMoverRobot extends RobotSE{
 	/**
 	 * continue moving forward and checking if the robot can pick up a chair
 	 */
-	private void checkForwards() {
+	private void cleanRow() {
 		//keep going if robot is not blocked
 		while (this.frontIsClear()) {
-			this.continuePickingChairs();
+			this.pickChairsAtPos();
 			this.move();
 		}
 		
 		//Add the missing check for the end of the row (there's a move command at the end of the while loop)
-		this.continuePickingChairs();
+		this.pickChairsAtPos();
 	}
 	
 	/**
 	 * continues picking chairs and depositing them in the storage, while at a singular position in the caf
 	 */
-	private void continuePickingChairs() {
+	private void pickChairsAtPos() {
 		//While there are chairs to be picked up
 		while (this.canPickThing()) {
 			this.pickUpChair();
@@ -114,7 +114,7 @@ public class FengChairMoverRobot extends RobotSE{
 	private void prepareToClean() {
 		this.goToPosition(this.doorStreet, this.doorAve);
 		this.turnEast();
-		this.continueMoving();
+		this.moveToEnd();
 		this.turnWest();
 	}
 	
@@ -185,7 +185,7 @@ public class FengChairMoverRobot extends RobotSE{
 	 */
 	private void collectDoorInfo() {
 		this.turnNorth();
-		this.continueMoving();
+		this.moveToEnd();
 		this.doorStreet = this.getStreet() - 1;
 	}
 	
@@ -195,9 +195,9 @@ public class FengChairMoverRobot extends RobotSE{
 	 */
 	private void moveToBottomLeftStorage() {
 		this.turnSouth();
-		this.continueMoving();
+		this.moveToEnd();
 		this.turnWest();
-		this.continueMoving();
+		this.moveToEnd();
 		
 		this.saveStorageInfo();
 	}
@@ -248,19 +248,19 @@ public class FengChairMoverRobot extends RobotSE{
 	 */
 	private void moveBottomLeft() {
 		this.turnWest();
-		this.continueMoving();
+		this.moveToEnd();
 		
 		//Keep default information for the door
 		this.doorAve = this.getAvenue();
 		
 		this.turnSouth();
-		this.continueMoving();
+		this.moveToEnd();
 	}
 	
 	/**
 	 * continues moving in one direction until the robot is blocked by a barrier
 	 */
-	private void continueMoving() {
+	private void moveToEnd() {
 		//while the robot isn't blocked by walls
 		while (this.frontIsClear()) {
 			this.move();

@@ -28,7 +28,7 @@ public class A3E4 {
 		SpiralBot thisRobot = new SpiralBot(oakville,robotX,robotY,Direction.EAST);
 		
 		addThings(oakville, robotX, robotY, 49);
-		thisRobot.makeSpiral(1);
+		thisRobot.makeSpiral(3);
 	}
 
 }
