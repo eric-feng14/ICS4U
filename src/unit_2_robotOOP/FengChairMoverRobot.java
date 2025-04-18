@@ -4,7 +4,7 @@ import becker.robots.*;
 /**
  * Template class for creating a cleaner robot
  * @author Eric Feng
- * @version April 11 2025
+ * @version April 17 2025
  */
 public class FengChairMoverRobot extends RobotSE{
 	
@@ -63,10 +63,7 @@ public class FengChairMoverRobot extends RobotSE{
 		this.turnNorth();
 		
 		//If the robot is blocked by a wall on the north side, it is finished cleaning
-		if (!this.frontIsClear()) {
-			return true;
-		}
-		return false;
+		return !this.frontIsClear();
 	}
 	
 	/**
@@ -316,9 +313,7 @@ public class FengChairMoverRobot extends RobotSE{
 		}
 		
 		//Perform movements
-		for (int i = 0; i < Math.abs(dist); i++) {
-			this.move();
-		}
+		this.move(Math.abs(dist));
 	}
 	
 	/**
@@ -335,9 +330,7 @@ public class FengChairMoverRobot extends RobotSE{
 		}
 		
 		//Perform the actual movements
-		for (int i = 0; i < Math.abs(dist); i++) {
-			this.move();
-		}
+		this.move(Math.abs(dist));
 	}
 	
 	/**
