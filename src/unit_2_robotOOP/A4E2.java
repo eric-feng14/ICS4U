@@ -15,6 +15,7 @@ public class A4E2 {
 		for (Vehicle v : vehicles) {
 			v.getName();
 			v.getPrice();
+			v.drive();
 			System.out.println();
 		}
 	}

@@ -6,6 +6,6 @@ public class RollsRoyce extends Vehicle{
 	}
 	
 	public void drive() {
-		System.out.println("this is a rolls royce");
+		System.out.println("This is a rolls royce");
 	}
 }
