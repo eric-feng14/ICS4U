@@ -9,5 +9,9 @@ public abstract class Character {
 	protected int x, y;
 	protected Graphics g;
 	
+	public Character() {
+		System.out.println("Constructor called");
+	}
+	
 	public abstract void draw();
 }
