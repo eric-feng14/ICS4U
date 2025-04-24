@@ -27,7 +27,7 @@ and pick up any Thing that is at the new intersection
 	 */
 	public void move() {
 		super.move();
-		super.pickAllThings();
+		this.pickAllThings();
 	}
 	
 	/**
@@ -108,7 +108,7 @@ and pick up any Thing that is at the new intersection
 	 */
 	private void moveToEnd() {
 		//Continue moving forward and doing nothing else
-		while (super.frontIsClear()) {
+		while (this.frontIsClear()) {
 			super.move();
 		}
 	}
@@ -119,8 +119,8 @@ and pick up any Thing that is at the new intersection
 	 */
 	private void turnTo(Direction targetDir) {
 		//Continue turning left while the desired direction has not been reached
-	    while (super.getDirection() != targetDir) {
-	        super.turnLeft();
+	    while (this.getDirection() != targetDir) {
+	        this.turnLeft();
 	    }
 	}
 

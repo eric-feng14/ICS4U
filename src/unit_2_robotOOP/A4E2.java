@@ -8,10 +8,15 @@ package unit_2_robotOOP;
 public class A4E2 {
 
 	public static void main(String[] args) {
+		//Polymorphic array of vehicles
 		Vehicle[] vehicles = new Vehicle[3];
+		
+		//Add the specific types of vehicles
 		vehicles[0] = new Cybertruck("Model 1", 200.34);
 		vehicles[1] = new Audi("R8", 400.2);
 		vehicles[2] = new RollsRoyce("Model 2", 324.96);
+		
+		//Get information about each vehicle
 		for (Vehicle v : vehicles) {
 			v.getName();
 			v.getPrice();
