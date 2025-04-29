@@ -3,10 +3,17 @@ import java.util.*;
 
 public class A4E4 {
 
+	/**
+	 * recursive function that returns a reversed version of a word
+	 * @param word the subsection of the string
+	 * @return the reversed version of a string
+	 */
 	public static String reversedWord(String word) {
+		//Base case
 		if (word.length() <= 1) {
 			return word;
 		}
+		//Recursive case - keeps putting last letter at the end
 		return reversedWord(word.substring(1)) + word.charAt(0);
 		
 	}

@@ -27,14 +27,14 @@ public abstract class Vehicle {
 	/**
 	 * get the name of the current Vehicle object
 	 */
-	public void getName() {
-		System.out.println(this.name);
+	public String getName() {
+		return this.name;
 	}
 	
 	/**
 	 * get the price of the current Vehicle object
 	 */
-	public void getPrice() {
-		System.out.println(this.price);
+	public double getPrice() {
+		return this.price;
 	}
 }

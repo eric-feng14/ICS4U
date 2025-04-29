@@ -31,10 +31,14 @@ public class TunnelRobot extends RobotSE{
 			if (this.endReached()) {
 				targetReached = true;
 			}
-			this.returnToStart();
-			this.deposit();
+			this.returnAndDeposit();
 		}
 		this.exitPile();
+	}
+	
+	private void returnAndDeposit() {
+		this.returnToStart();
+		this.deposit();
 	}
 	
 	/**

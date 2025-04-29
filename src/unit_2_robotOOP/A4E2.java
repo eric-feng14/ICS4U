@@ -12,14 +12,14 @@ public class A4E2 {
 		Vehicle[] vehicles = new Vehicle[3];
 		
 		//Add the specific types of vehicles
-		vehicles[0] = new Cybertruck("Model 1", 200.34);
-		vehicles[1] = new Audi("R8", 400.2);
-		vehicles[2] = new RollsRoyce("Model 2", 324.96);
+		vehicles[0] = new Cybertruck();
+		vehicles[1] = new Audi();
+		vehicles[2] = new RollsRoyce();
 		
 		//Get information about each vehicle
 		for (Vehicle v : vehicles) {
-			v.getName();
-			v.getPrice();
+			System.out.println(v.getName());
+			System.out.println(v.getPrice());
 			v.drive();
 			System.out.println();
 		}
