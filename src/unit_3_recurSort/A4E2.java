@@ -19,7 +19,7 @@ public class A4E2 {
 	public static void main(String[] args) {
 		final int COUNT = 10;
 		for (int i = 1; i <= COUNT; i++) {
-			System.out.println(fib(i));
+			System.out.println("Fibonacci number " + i + " = " + fib(i));
 		}
 	}
 
