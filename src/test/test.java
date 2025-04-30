@@ -1,21 +1,19 @@
 package test;
+import javax.swing.*;
+import java.awt.*;
 
-class test {
-	static int count = 0; // Shared among all instances
-	
-	public test() {
-		count++; // Increment count for each new object
-	}
-
+public class test extends Canvas{
 	public static void main(String[] args) {
-		System.out.println(test.count);
-		test thisObj = new test();
-		test newObj = new test();
-		System.out.println(test.count);
+		JFrame frame = new JFrame("Sample Frame");
+		Canvas canvas = new test();
+		canvas.setSize(650, 500);
+		frame.add(canvas);
+		frame.pack();
+		frame.setVisible(true);
+	}
+	
+	public void paint(Graphics g) {
+		
 	}
 
-	public static void testme(int up, int down) throws ArithmeticException {
-		System.out.println("simulate throw new ArithmeticException");
-		throw new ArithmeticException();
-	}
 }
