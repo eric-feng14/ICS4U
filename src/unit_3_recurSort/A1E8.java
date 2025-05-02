@@ -11,13 +11,13 @@ public class A1E8 extends Canvas{
 	
 	/**
 	 * Recursive helper method to draw the Sierpinski’s Triangle
-	 * @param centerX
-	 * @param centerY
-	 * @param side
-	 * @param g
+	 * @param centerX centerX is center x coordinate of the current triangle
+	 * @param centerY centerY is the center y coordinate of the current triangle
+	 * @param side side is the side length of the current triagle
+	 * @param g g is the graphics object to be drawn on
 	 */
 	private void drawTriangle(int centerX, int centerY, int side, Graphics g) {
-		if (side <= 10) { //Draws a triangle centered at centerX, centerY
+		if (side <= 5) { //Draws a triangle centered at centerX, centerY
 			return;
 		}
 		//Calculate height that changes for each triangle method call

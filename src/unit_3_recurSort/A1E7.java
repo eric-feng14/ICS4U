@@ -9,8 +9,16 @@ import javax.swing.JFrame;
  */
 public class A1E7 extends Canvas{
 	
+	//the amount of space between each rectangle, and the height of each rectangle
 	final private int heightDiff = 40, height = 20;
 	
+	/**
+	 * Recursive draw method that draws 
+	 * @param x x is the x coord of the top left corner of the current rectangle
+	 * @param y y is the y coord of the top left corner of the current rect
+	 * @param len len is the side length of the rect
+	 * @param g g is the graphics object to be drawn
+	 */
 	public void draw(int x, int y, int len, Graphics g) {
 		if (len <= 3) {
 			return;
