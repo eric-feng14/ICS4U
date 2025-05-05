@@ -31,8 +31,9 @@ public class FengRobberApplicationClass {
 		oakville.showThingCounts(true);
 		setup(oakville);
 		FengRobberRobot karel = new FengRobberRobot(oakville, 1, 1, Direction.SOUTH, 4);
+		FengRobberRobot karel1 = new FengRobberRobot(oakville, 1, 1, Direction.SOUTH, 4);
 		karel.robHouse();
-		karel.robHouse();
+		karel1.robHouse();
 	}
 
 }
