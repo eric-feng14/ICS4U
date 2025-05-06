@@ -25,8 +25,7 @@ public class A1E1 {
 			int idx = 0;
 			//Collect input and store it the array "nums"
 			while (input.hasNext()) {
-				int n = input.nextInt();
-				nums[idx] = n;
+				nums[idx] = input.nextInt();
 				idx++;
 			}
 			

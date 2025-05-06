@@ -22,18 +22,21 @@ import java.util.*;
 import java.io.*;
 
 public class test {
-	public static void main(String[] args) {
-		try {
-			Scanner input = new Scanner(new File("numbers2.txt"));
-			int i = 0;
-			while (input.hasNext()) {
-				int n = input.nextInt();
-				i++;
-			}
-			System.out.println(i);
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found!");
-			System.exit(0);
-		}
-	}
+    public static void main(String[] args) {
+        try {
+        	Scanner input = new Scanner(new File("numbers.txt"));
+        	int idx = 0;
+        	ArrayList<Integer> arr = new ArrayList<Integer>();
+        	while (input.hasNext()) arr.add(input.nextInt());
+        	arr.sort(null);
+        	for (int i : arr) {
+        		System.out.println(i);
+        	}
+        	
+        	
+        } catch (FileNotFoundException e) {
+        	System.out.println("file not found");
+        	System.exit(0);
+        }
+    }
 }

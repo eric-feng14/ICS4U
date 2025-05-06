@@ -48,8 +48,7 @@ public class A1E2a {
 			
 			//Collect input and store the numbers in an array of size 8000
 			while (input.hasNext()) {
-				int n = input.nextInt();
-				originalNums[idx] = n;
+				originalNums[idx] = input.nextInt();
 				idx++;
 			}
 			
