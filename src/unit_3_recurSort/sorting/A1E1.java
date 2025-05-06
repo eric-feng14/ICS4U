@@ -31,7 +31,8 @@ public class A1E1 {
 			
 			//Loop through the array and check if each element equals the desired one
 			for (int i : nums) {
-				if (i == num) return true;
+				if (i == num)
+					return true;
 			}
 			
 		} catch (FileNotFoundException e) {

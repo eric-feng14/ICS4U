@@ -9,7 +9,7 @@ import java.io.*;
  */
 public class A1E2a {
 	
-	final static private int SIZE = 120;
+	final static private int SIZE = 119;
 	
 	/**
 	 * returns the value that is greater than or equal to "val"
