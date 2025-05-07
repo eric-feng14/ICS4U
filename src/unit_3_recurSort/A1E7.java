@@ -14,21 +14,20 @@ public class A1E7 extends Canvas{
 	
 	/**
 	 * Recursive draw method that draws 
+	 * Note: when you have a method that returns nothing, try to program it so that there is no return statement
 	 * @param x x is the x coord of the top left corner of the current rectangle
 	 * @param y y is the y coord of the top left corner of the current rect
 	 * @param len len is the side length of the rect
 	 * @param g g is the graphics object to be drawn
 	 */
 	public void draw(int x, int y, int len, Graphics g) {
-		if (len <= 3) {
-			return;
+		if (len > 3) {
+			//Main action: draw the two rectangles
+			g.fillRect(x, y, len, height);
+			//Recursive case: keep drawing the pairs of rectangles
+			this.draw(x, y + heightDiff, len/3, g);
+			this.draw(x + 2*len/3, y + heightDiff, len/3, g);
 		}
-		
-		//Main action: draw the two rectangles
-		g.fillRect(x, y, len, height);
-		//Recursive case: keep drawing the pairs of rectangles
-		this.draw(x, y + heightDiff, len/3, g);
-		this.draw(x + 2*len/3, y + heightDiff, len/3, g);
 	}
 
 	public static void main(String[] args) {
