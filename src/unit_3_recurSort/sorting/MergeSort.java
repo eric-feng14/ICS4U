@@ -63,9 +63,9 @@ public class MergeSort {
 		//If there is still room to divide, if they are equal, we reached the base case of 1 element
 		if (start < end) {
 			int mid = (start + end) / 2; //equivalent to start + (end - start) / 2, can be proved algebraically
-			mergeSort(arr, start, mid);
-			mergeSort(arr, mid+1, end);
-			merge(arr, start, mid, end);
+			mergeSort(arr, start, mid); //divide left array
+			mergeSort(arr, mid+1, end); //divide right array
+			merge(arr, start, mid, end); //merge the two divided arrays together
 		}
 	}
 
