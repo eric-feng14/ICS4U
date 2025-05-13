@@ -94,41 +94,33 @@ public class BranchApplication {
 			System.exit(0);
 		}
 		
-		
-		printArray(accounts);
-//		bubbleSort(accounts);
-		insertionSort(accounts);
-		selectionSort(accounts);
-		System.out.println();
-		printArray(accounts);
-		
-//		Scanner input = new Scanner(System.in);
-//		System.out.println("Welcome to the WOSS Bank!\n");
-//		while (true) {
-//			System.out.println("What would you like to do?");
-//			System.out.println("1. Access account");
-//			System.out.println("    1. View Balance");
-//			System.out.println("    2. Deposit");
-//			System.out.println("    3. Withdraw");
-//			System.out.println("2. Sort by amount using Bubble Sort");
-//			System.out.println("3. Sort by ID using Insertion Sort");
-//			System.out.println("4. Sort by names using Selection Sort");
-//			System.out.println("5. Exit\n");
-//			System.out.print("Enter selection: ");
-//			int n = input.nextInt();
-//			if (n == 1) {
-//				
-//			} else if (n == 2) { //bubble sort
-//				
-//			} else if (n == 3) { //insertion sort
-//				
-//			} else if (n == 4) { //selection sort
-//				
-//			} else if (n == 5) { 
-//				break;
-//			} else {
-//				System.out.println("Invalid input!");
-//			}
-//		}
+		Scanner input = new Scanner(System.in);
+		System.out.println("Welcome to the WOSS Bank!\n");
+		while (true) {
+			System.out.println("What would you like to do?");
+			System.out.println("1. Access account");
+			System.out.println("    1. View Balance");
+			System.out.println("    2. Deposit");
+			System.out.println("    3. Withdraw");
+			System.out.println("2. Sort by amount using Bubble Sort");
+			System.out.println("3. Sort by ID using Insertion Sort");
+			System.out.println("4. Sort by names using Selection Sort");
+			System.out.println("5. Exit\n");
+			System.out.print("Enter selection: ");
+			int n = input.nextInt();
+			if (n == 1) {
+				printArray(accounts);
+			} else if (n == 2) { //bubble sort
+				bubbleSort(accounts);
+			} else if (n == 3) { //insertion sort
+				insertionSort(accounts);
+			} else if (n == 4) { //selection sort
+				selectionSort(accounts);
+			} else if (n == 5) { 
+				break;
+			} else {
+				System.out.println("Invalid input!");
+			}
+		}
 	}
 }
