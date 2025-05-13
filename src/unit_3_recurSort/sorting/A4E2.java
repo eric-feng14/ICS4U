@@ -38,7 +38,7 @@ public class A4E2 {
 	}
 	
 	public static void main(String[] args) {
-		int[] marks = {6,3,1,4,7,4,2};
+		int[] marks = {6,3,1,4,7,3};
 		sort(marks);
 		for (int e : marks) System.out.println(e);
 		System.out.println(median(marks));

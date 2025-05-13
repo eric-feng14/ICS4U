@@ -10,6 +10,17 @@ import java.io.*;
 public class BranchApplication {
 	
 	/**
+	 * swaps two bank accounts
+	 * @param a1 a1 is account #1
+	 * @param a2 a2 is account #2
+	 */
+	public static void swap(Account a1, Account a2) {
+		Account tmp = a1;
+		a1 = a2;
+		a2 = tmp;
+	}
+	
+	/**
 	 * Sorts an array of account objects by name using selection sort algorithm
 	 * @param accounts accounts is the array of account objects
 	 */
@@ -20,9 +31,7 @@ public class BranchApplication {
 			//Pass "i" to find the min element through the rest of the array
 			for (int j = i + 1; j < accounts.length; j++) {
 				if (accounts[j].getName().compareTo(accounts[i].getName()) < 0) {
-					Account tmp = accounts[i];
-					accounts[i] = accounts[j];
-					accounts[j] = tmp;
+					swap(accounts[i], accounts[j]);
 				}
 			}
 		}
@@ -57,9 +66,7 @@ public class BranchApplication {
 			for (int j = 0; j < accounts.length - 1; j++) {
 				//If the left element is greater than the right element, swap them
 				if (accounts[j].getBalance() > accounts[j+1].getBalance()) {
-					Account tmp = accounts[j];
-					accounts[j] = accounts[j+1];
-					accounts[j+1] = tmp;
+					swap(accounts[i], accounts[j]);
 					swapped = true;
 				}
 			}
@@ -74,10 +81,13 @@ public class BranchApplication {
 	 * prints all the elements in array assuming an overriden toString() method
 	 * @param accounts accounts is the array of bank accounts
 	 */
-	private static void printArray(Account[] accounts) {
+	private static Account searchArray(Account[] accounts, int accountNum) {
 		for (Account a : accounts) {
-			System.out.println(a);
+			if (a.getAccountNum() == accountNum) {
+				return a;
+			}
 		}
+		return null;
 	}
 	
 	public static void main(String[] args) {
@@ -86,7 +96,7 @@ public class BranchApplication {
 		
 		try {
 			Scanner input = new Scanner(new File("accounts.txt"));
-			for (int i = 0; i < accounts.length; i++) {
+			for (int i = 0; input.hasNext(); i++) {
 				accounts[i] = new Account(input);
 			}
 		} catch (FileNotFoundException e) {
@@ -109,7 +119,22 @@ public class BranchApplication {
 			System.out.print("Enter selection: ");
 			int n = input.nextInt();
 			if (n == 1) {
-				printArray(accounts);
+				System.out.print("Which option do you choose? ");
+				int option = input.nextInt();
+				System.out.print("Enter the account number: ");
+				int accountNum = input.nextInt(); double amount;
+				Account thisAccount = searchArray(accounts, accountNum);
+				if (option == 1) { //view balance
+					System.out.println(thisAccount.getBalance());
+				} else if (option == 2) { //deposit
+					System.out.print("How much would you like to deposit?" );
+					amount = input.nextDouble();
+					thisAccount.deposit(amount);
+				} else if (option == 3) { //withdraw
+					System.out.println("How much would you like to withdraw? ");
+					amount = input.nextDouble();
+					thisAccount.withdraw(amount);
+				}
 			} else if (n == 2) { //bubble sort
 				bubbleSort(accounts);
 			} else if (n == 3) { //insertion sort
