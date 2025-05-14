@@ -14,10 +14,10 @@ public class BranchApplication {
 	 * @param a1 a1 is account #1
 	 * @param a2 a2 is account #2
 	 */
-	public static void swap(Account a1, Account a2) {
-		Account tmp = a1;
-		a1 = a2;
-		a2 = tmp;
+	public static void swap(Account[] accounts, int i, int j) {
+		Account tmp = accounts[i];
+		accounts[i] = accounts[j];
+		accounts[j] = tmp;
 	}
 	
 	/**
@@ -31,7 +31,7 @@ public class BranchApplication {
 			//Pass "i" to find the min element through the rest of the array
 			for (int j = i + 1; j < accounts.length; j++) {
 				if (accounts[j].getName().compareTo(accounts[i].getName()) < 0) {
-					swap(accounts[i], accounts[j]);
+					swap(accounts, i, j);
 				}
 			}
 		}
@@ -66,7 +66,7 @@ public class BranchApplication {
 			for (int j = 0; j < accounts.length - 1; j++) {
 				//If the left element is greater than the right element, swap them
 				if (accounts[j].getBalance() > accounts[j+1].getBalance()) {
-					swap(accounts[i], accounts[j]);
+					swap(accounts, j, j+1);
 					swapped = true;
 				}
 			}
@@ -88,6 +88,16 @@ public class BranchApplication {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * prints out information about each account in the accounts array
+	 * @param accounts accounts is the array holding the bank accounts
+	 */
+	public static void printArr(Account[] accounts) {
+		for (Account a : accounts) {
+			System.out.println(a);
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -124,6 +134,10 @@ public class BranchApplication {
 				System.out.print("Enter the account number: ");
 				int accountNum = input.nextInt(); double amount;
 				Account thisAccount = searchArray(accounts, accountNum);
+				if (thisAccount == null) {
+				    System.out.println("Account not found.");
+				    continue;
+				}
 				if (option == 1) { //view balance
 					System.out.println(thisAccount.getBalance());
 				} else if (option == 2) { //deposit
@@ -137,10 +151,13 @@ public class BranchApplication {
 				}
 			} else if (n == 2) { //bubble sort
 				bubbleSort(accounts);
+				printArr(accounts);
 			} else if (n == 3) { //insertion sort
 				insertionSort(accounts);
+				printArr(accounts);
 			} else if (n == 4) { //selection sort
 				selectionSort(accounts);
+				printArr(accounts);
 			} else if (n == 5) { 
 				break;
 			} else {

@@ -46,7 +46,11 @@ public class Account {
 	 * @param amount amount is how much they want to withdraw
 	 */
 	public void withdraw(double amount) {
-		this.balance -= amount;
+		if (amount >= this.balance) { 
+			this.balance -= amount;
+		} else {
+			System.out.println("not enough balance! ");
+		}
 	}
 	
 	/**
