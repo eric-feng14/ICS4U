@@ -6,6 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="CompSciSummative"/>
 	<classpathentry kind="lib" path="C:/Users/14eri/Documents/eclipse_workspace/ICS4U/lib/becker.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
